@@ -1,361 +1,66 @@
-
 <!DOCTYPE html>
-<html lang="zh-CN">
-    
+ <html lang="zh-CN"> 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="疏影横斜">
-    <title>解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME） - 疏影横斜</title>
-    <meta name="author" content="Pocser">
-    
-    
-    
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Pocser","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"]},"articleBody":"本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：\n当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。\n情形1：未添加 CNAME解决方案：\n找到 hexo 博客根目录下的 source 文件夹。注意，不是主题的 source 文件夹。当 hexo 生成静态页面时，根目录下的 source 文件夹中的内容，就会在生成的网页根目录中（你可以在部署到github后，在仓库中查看，此时本地根目录下source文件夹的内容就在仓库的根目下）。\n\n新建一个文件，名为 CNAME ，内容为你的域名（不包括www.或http等等）。如图：\n\n\n\n注意：——- 名为 CNAME，全部大写，没有后缀。——- 内容只包含一个域名，且不含 www. 或 http 等。——- 放到根目录下的source文件夹中。\n\nhexo g -d\n\n执行完毕后登陆github，找到仓库，settings，查看域名是否已经更改，或者直接用域名尝试访问。\n情形2：已添加 CNAME解决方案：\n首先进入github仓库查看 CNAME是否出现在根目录中，如图所示：\n\n\n​    若没有，则请返回第一种情况，认真检查自己的 CNAME 的路径是否正确。\n\n若仓库根目录存在 CNAME 文件，请按照以下步骤检查：——- 情形1步骤2中的注意点，是否都符合要求？——- 若感觉符合要求！！！请你务必注意你的文件后缀！！！\n\n首先，看你的电脑是不是把后缀自动隐藏了，虽然你命名时，只输入了CNAME，但是它有可能会自动生成一个后缀，且隐藏。假如你用 mac，用文本编辑，命名为CNAME 保存后，有可能会自动加上后缀，但是 mac又很鬼畜的把后缀给隐藏了！！\n\n一定要注意！！保存时留意一下格式。\n其次，如果你发现你文件格式不对，不要直接把它的后缀去掉，有可能会出错。\n\n如果这样直接修改，表面上是满足要求了，但仍可能出错。\n\n因为它会认为你的文件已经损坏了，所以你应该重新建好一个 CNAME 无后缀文件，并将其替代。至此问题解决。\n新建无后缀文件可以使用touch命令。使用命令行，cd 到指定目录，然后 touch filename，这样就新建了一个名为filename的无后缀文件。\n","dateCreated":"2024-08-31T19:55:42+08:00","dateModified":"2024-08-31T20:22:57+08:00","datePublished":"2024-08-31T19:55:42+08:00","description":"","headline":"解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/08/31/24083101/"},"publisher":{"@type":"Organization","name":"Pocser","sameAs":["https://github.com/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"]},"url":"http://example.com/2024/08/31/24083101/","keywords":"域名, 失效, 自定义, hexo, 部署"}</script>
-    <meta name="description" content="本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文： 当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。 情形1：未添加 CNAME解决方案： 找到 hexo">
-<meta property="og:type" content="blog">
-<meta property="og:title" content="解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）">
-<meta property="og:url" content="http://example.com/2024/08/31/24083101/index.html">
-<meta property="og:site_name" content="疏影横斜">
-<meta property="og:description" content="本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文： 当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。 情形1：未添加 CNAME解决方案： 找到 hexo">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgpff.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgwcD.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgW38.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEghjg.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEg7En.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgO3T.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgXgU.png">
-<meta property="article:published_time" content="2024-08-31T11:55:42.000Z">
-<meta property="article:modified_time" content="2024-08-31T12:22:57.951Z">
-<meta property="article:author" content="Pocser">
-<meta property="article:tag" content="域名, 失效, 自定义, hexo, 部署">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s21.ax1x.com/2024/08/31/pAEgpff.png">
-    
-    
-        
-    
-    
-    
-    
-    
-    <!--STYLES-->
-    
-<link rel="stylesheet" href="/assets/css/all.css">
+  <meta charset="utf-8">
+  
+  <title>解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME） | 疏影横斜</title>
+  <meta name="author" content="Pocser">
 
-    
-<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+  
+  <meta name="description" content="本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：
+当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，">
+  
 
-    
-<link rel="stylesheet" href="/assets/css/thumbs.css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    
-<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-    <!--STYLES END-->
-    
+  
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
 
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
     
-
+      <li><a href="/">Home</a></li>
     
-        
+      <li><a href="/archives">Archives</a></li>
     
-</head>
-
-    <body>
-        <div id="blog">
-            <!-- Define author's picture -->
-
-
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    <div class="gallery">
+  <div class="photoset">
     
-
-<header id="header" data-behavior="4">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
-    <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
-            疏影横斜
-        </a>
-    </div>
+      <img src="">
     
-        
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Öffne den Link: /#about"
-            >
-        
-        
-        </a>
-    
-</header>
-
-            <!-- Define author's picture -->
-
-
-<nav id="sidebar" data-behavior="4">
-    <div class="sidebar-container">
-        
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
-                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Kategorien"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Kategorien</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archiv"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archiv</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="#search"
-                            
-                            rel="noopener"
-                            title="Suche"
-                        >
-                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Suche</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="Über"
-                        >
-                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Über</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
-                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">GitHub</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="http://stackoverflow.com/users"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Stack Overflow"
-                        >
-                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Stack Overflow</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://twitter.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Twitter"
-                        >
-                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Twitter</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://facebook.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Facebook"
-                        >
-                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Facebook</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://plus.google.com/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="Google Plus"
-                        >
-                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Google Plus</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="https://www.linkedin.com/profile/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="LinkedIn"
-                        >
-                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">LinkedIn</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/mailto"
-                            
-                            rel="noopener"
-                            title="E-Mail"
-                        >
-                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">E-Mail</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/atom.xml"
-                            
-                            rel="noopener"
-                            title="RSS"
-                        >
-                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">RSS</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-    </div>
-</nav>
-
-            
-            <div id="main" data-behavior="4"
-                 class="
-                        hasCoverMetaIn
-                        ">
-                
-<article class="post">
-    
-    
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title">
-            解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）
-        </h1>
-    
-    
-        <div class="post-meta">
-    <time datetime="2024-08-31T19:55:42+08:00">
-	
-		    31 8月 2024
-    	
-    </time>
-    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
 </div>
-
+  
+  <header>
     
-</div>
+  
+    <h1 class="p-name title" itemprop="headline name">解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）</h1>
+  
 
+    <time class="dt-published" datetime="2024-08-31T11:55:42.000Z">
+  <span class="day">31</span><span class="month">Aug</span>
+</time>
+  </header>
+  <div class="e-content entry-content">
     
-    <div class="post-content markdown">
-        <div class="main-content-wrap">
-            <p>本文内容来自<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41747528/article/details/102772937">csdn</a>上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：</p>
+      <p>本文内容来自<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41747528/article/details/102772937">csdn</a>上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：</p>
 <p>当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。</p>
 <h3 id="情形1：未添加-CNAME"><a href="#情形1：未添加-CNAME" class="headerlink" title="情形1：未添加 CNAME"></a>情形1：未添加 CNAME</h3><h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h5><ol>
 <li><p>找到 hexo 博客根目录下的 source 文件夹。注意，不是主题的 source 文件夹。当 hexo 生成静态页面时，根目录下的 source 文件夹中的内容，就会在生成的网页根目录中（你可以在部署到github后，在仓库中查看，此时本地根目录下source文件夹的内容就在仓库的根目下）。<br><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgpff"><img src="https://s21.ax1x.com/2024/08/31/pAEgpff.png" alt="pAEgpff.png"></a></p>
@@ -387,333 +92,67 @@
 <p>因为它会认为你的文件已经损坏了，所以你应该重新建好一个 CNAME 无后缀文件，并将其替代。至此问题解决。</p>
 <p>新建无后缀文件可以使用<strong>touch</strong>命令。<br>使用命令行，<strong>cd</strong> 到指定目录，然后 <strong>touch filename</strong>，这样就新建了一个名为filename的无后缀文件。</p>
 
-            
+    
+    
+    <footer class="meta">
+      
+      
+  <div class="tags">
+<a href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/">域名, 失效, 自定义, hexo, 部署</a></div>
 
-
-        </div>
-    </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
-        
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">GETAGGT IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/" rel="tag">域名, 失效, 自定义, hexo, 部署</a>
-
-            </div>
-        
-        
-            <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2024/09/01/24090101/"
-                    data-tooltip="开学第一课"
-                    aria-label="FRÜHER: 开学第一课"
-                >
-                    
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
-                    </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2024/08/30/24083002/"
-                    data-tooltip="github域名配置完成"
-                    aria-label="NÄCHSTER: github域名配置完成"
-                >
-                    
-                        <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Diesen Beitrag teilen"
-            >
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2024/08/31/24083101/"
-                    title="Teilen auf Facebook"
-                    aria-label="Teilen auf Facebook"
-                >
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2024/08/31/24083101/"
-                    title="Teilen auf Twitter"
-                    aria-label="Teilen auf Twitter"
-                >
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2024/08/31/24083101/"
-                    title="Teilen auf Google Plus"
-                    aria-label="Teilen auf Google Plus"
-                >
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-        
-        
-            
-        
-    </div>
-</article>
-
-
-
-                <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-        Copyrights &copy; 2026 Pocser. All Rights Reserved.
-    </span>
-</footer>
-
-            </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2024/09/01/24090101/"
-                    data-tooltip="开学第一课"
-                    aria-label="FRÜHER: 开学第一课"
-                >
-                    
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
-                    </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2024/08/30/24083002/"
-                    data-tooltip="github域名配置完成"
-                    aria-label="NÄCHSTER: github域名配置完成"
-                >
-                    
-                        <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Diesen Beitrag teilen"
-            >
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2024/08/31/24083101/"
-                    title="Teilen auf Facebook"
-                    aria-label="Teilen auf Facebook"
-                >
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://example.com/2024/08/31/24083101/"
-                    title="Teilen auf Twitter"
-                    aria-label="Teilen auf Twitter"
-                >
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://example.com/2024/08/31/24083101/"
-                    title="Teilen auf Google Plus"
-                    aria-label="Teilen auf Google Plus"
-                >
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-                </div>
-                
-    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-        <i id="btn-close-shareoptions" class="fa fa-times"></i>
-        <ul class="share-options">
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2024/08/31/24083101/"
-                        aria-label="Teilen auf Facebook"
-                    >
-                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Teilen auf Facebook</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://twitter.com/intent/tweet?text=http://example.com/2024/08/31/24083101/"
-                        aria-label="Teilen auf Twitter"
-                    >
-                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Teilen auf Twitter</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://plus.google.com/share?url=http://example.com/2024/08/31/24083101/"
-                        aria-label="Teilen auf Google Plus"
-                    >
-                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Teilen auf Google Plus</span>
-                    </a>
-                </li>
-            
-        </ul>
-    </div>
-
-
-            
-        </div>
-        
-
-
-<div id="about">
-    <div id="about-card">
-        <div id="about-btn-close">
-            <i class="fa fa-times"></i>
-        </div>
-        
-            <h4 id="about-card-name">Pocser</h4>
-        
-            <div id="about-card-bio"><p>author.bio</p>
-</div>
-        
-        
-            <div id="about-card-job">
-                <i class="fa fa-briefcase"></i>
-                <br/>
-                <p>author.job</p>
-
-            </div>
-        
-        
-    </div>
-</div>
-
-        
-        
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
-        <!--SCRIPTS-->
-
-<script src="/assets/js/jquery.js"></script>
-
-
-<script src="/assets/js/jquery.fancybox.js"></script>
-
-
-<script src="/assets/js/thumbs.js"></script>
-
-
-<script src="/assets/js/tranquilpeak.js"></script>
-
-<!--SCRIPTS END-->
-
+      
+    </footer>
+    
+      
 
     
+    
+  </div>
+  
+</article>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2026 Pocser
+  
+</p>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
 
 
 
 
-    </body>
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+
+<script src="/js/phasebeam.js"></script>
+
+</body>
 </html>
