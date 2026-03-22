@@ -1,115 +1,57 @@
-<!DOCTYPE html>
- <html lang="zh-CN"> 
-<head>
-  <meta charset="utf-8">
-  
-  <title>github.io, 域名, 配置 | 疏影横斜</title>
-  <meta name="author" content="Pocser">
+{% extends 'includes/layout.swig' %}
 
-  
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
-  
-<meta name="generator" content="Hexo 8.1.1"></head>
-
-<body>
-  <header id="header" class="inner"><nav>
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-</nav></header>
-  <div id="content" class="inner">
-
-<header id="archive-header">
-  <h1 class="alignleft">Tag: github.io, 域名, 配置</h1>
-  <div class="search alignright">
-    <form action="http://google.com/search" method="get" accept-charset="utf-8">
-      <input type="search" name="q" results="0" placeholder="Search">
-      <input type="hidden" name="q" value="site:example.com">
-    </form>
-  </div>
+{% block body %}
+<header class="blog-post-page-title blog-search-page-title">
+  <h4>标签<a href="">{{ page.tag }}</a>下的文章</h4>
 </header>
-
-
-
-  
-  
-    
-    </section><section class="archives"><div class="year">2024</div>
-  
-  <article class="archive">
-    <h1 class="title"><a href="/2024/08/30/24083002/">github域名配置完成</a></h1>
-    <footer>
-      <time datetime="2024-08-30T14:38:05.000Z">Aug 30</time>
-      
-      
-        <span class="tags">
-<a href="/tags/github-io-%E5%9F%9F%E5%90%8D-%E9%85%8D%E7%BD%AE/">github.io, 域名, 配置</a></span>
-      
-    </footer>
-  </article>
-
-<nav id="pagenavi">
-  
-  
-  <div class="clearfix"></div>
-</nav>
+<div class="blog-main-post blog-post-page-box">
+  {% for article in page.posts.toArray() %}
+    <article class="blog-post-block">
+        {% if article.photos and article.photos.length > 0%}
+        <header>
+            <div class="blog-post-block-img">
+                <img src="{{ article.photos }}" alt="">
+            </div>
+        </header>
+        {% endif %}
+        <div class="blog-post-block-padding">
+          {% if article.link %}
+            <a href="{{ url_for(article.link) }}">{{ article.title || 'No Title' }}</a>
+          {% else %}
+            <a href="{{ url_for(article.path) }}">{{ article.title || 'No Title' }}</a>
+          {% endif %}
+            <section>
+              {% if article.excerpt.length > 0 %}
+                {{ article.excerpt }}
+              {% else %}
+                {% set content = article.content | striptags %}
+                {{ content.substring(0, theme.index_post.length) }}
+                {% if content.length > theme.auto_excerpt.length %}...{% endif %}
+              {% endif %}
+            </section>
+            <footer>
+                <time datetime="{{ date_xml(article.date) }}><i class="fa fa-clock-o"></i>{{ date(article.date) }}</time>
+                {# 文章阅读次数 #}
+                {% if theme.LeanStatistics_enable==true %}
+                <span>
+                    <i class="fa fa-eye"></i>
+                    <span id="{{ url_for(postItem.path) }}" class="views"  title="{{ postItem.title }}"></span>
+                </span>
+                {% endif %}
+                {# 文章阅读次数 #}
+                {% if article.categories and article.categories.length %}
+                  <span><i class="fa fa-folder-o"></i>
+                    {% for cat in article.categories %}
+                      <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index">
+                        {{ cat.name }}
+                      </a>
+                    {% endfor %}
+                  </span>
+                {% endif %}
+            </footer>
+        </div>
+    </article>
+  {% endfor %}
+    {% include 'includes/pagination.swig' %}
 </div>
-  <footer id="footer" class="inner"><div class="social alignright">
-  
-  
-  
-  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
-</div>
-<p>
-  
-  &copy; 2026 Pocser
-  
-</p>
-<div class="clearfix"></div></footer>
-  
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-
-
-<script src="/js/gallery.js"></script>
-
-
-
-
-
-
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-<script>
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-<div id="phasebeam">
-  <canvas></canvas>
-  <canvas></canvas>
-  <canvas></canvas>
-</div>
-
-<script src="/js/phasebeam.js"></script>
-
-</body>
-</html>
+{% endblock %}

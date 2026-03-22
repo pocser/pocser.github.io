@@ -1,159 +1,214 @@
-<!DOCTYPE html>
- <html lang="zh-CN"> 
-<head>
-  <meta charset="utf-8">
-  
-  <title>Markdown语法学习 标题ID篇 | 疏影横斜</title>
-  <meta name="author" content="Pocser">
+{% extends 'includes/layout.swig' %}
 
-  
-  <meta name="description" content="标题ID许多Markdown处理器支持标题的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。
-1### My Great Heading &amp;#123;#custo">
-  
+{% block body %}
+<header class="blog-post-page-title">
+    <h4>{{ page.title }}</h4>
+    <time datetime="{{ page.date.toJSON() }}"><i class="fa fa-clock-o"></i>{{ date(page.date) }}</time>
+    {# 文章阅读次数 #}
+    {% if theme.LeanStatistics_enable==true %}
+    <span>
+        <i class="fa fa-eye"></i>
+        <span id="{{ url_for(page.path) }}" class="views views-post"  title="{{ page.title }}"></span>
+    </span>
+    {% endif %}
+    {# 文章阅读次数 #}
+    {# 文章分类 #}
+	{% if page.categories and page.categories.length %}
+        <span><i class="fa fa-folder-o"></i>
+    		{% for categories in page.categories %}
+    	       <a href="{{ url_for(categories.path) }}" rel="categories" data-toggle="tooltip" data-placement="top" title="Linux">{{ categories.name }}</a>
+    		{% endfor %}
+        </span>
+	{% endif %}
+    {# 文章分类 #}
+</header>
+<div class="blog-main-post blog-post-page-box">
+    <article class="blog-post-block blog-post-page-content">
+        <section>
+            {% if theme.post_excerpt==true %}
+                {{ page.content }}
+            {% else %}
+                {{ page.more }}
+            {% endif %}
+        </section>
+        <footer class="blog-post-page-tags">
+        {# 文章标签 #}
+			{% if page.tags and page.tags.length %}
+				{% for tag in page.tags %}
+			<a href="{{ url_for(tag.path) }}" rel="tag" data-toggle="tooltip" data-placement="top" title="Linux">{{ tag.name }}</a>
+				{% endfor %}
+			{% endif %}
+		{# 文章标签 #}
+        </footer>
+    </article>
+    <article class="blog-post-page-readmore">
+    	{# {% include 'includes/pagination.swig' %} #}
+    	{# 上一篇 #}
+		{% if page.prev_link %}
+			<a href="{{ url_for(page.prev_link) }}" class="blog-post-page-readmore-prev" data-toggle="tooltip" data-placement="top" title="{{ page.prev.title }}">上一篇</a>
+			{% elif page.prev && page.prev.path %}
+			<a href="{{ url_for(page.prev.path) }}" class="blog-post-page-readmore-prev" data-toggle="tooltip" data-placement="top" title="{{ page.prev.title }}">上一篇</a>
+		{% endif %}
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+		{# 下一篇 #}
+		{% if page.next_link %}
+			<a href="{{ url_for(page.next_link) }}" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">下一篇</a>
+			{% elif page.next && page.next.path %}
+			<a href="{{ url_for(page.next.path) }}" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">下一篇</a>
+		{% endif %}
 
-  
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+        <div style="clear: both;"></div>
+    </article>
 
-  
-  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
-  
-<meta name="generator" content="Hexo 8.1.1"></head>
+    <article class="blog-post-block blog-post-page-content">
+            <div class="row">
+            {% if theme.comment==true %}
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span class="post-comments-btn btn btn-info btn-block" data-toggle="tooltip" data-placement="top" title="本站采用Disqus评论组件，若您没有科学上网可能会无法查看并评论">加载评论</span>
+                </div>
+            {% endif %}
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span  data-toggle="modal" data-target="#post-donate-content">
+                        <span id="post-donate-btn" class="btn btn-danger btn-block" data-toggle="tooltip" data-placement="top" title="如果您觉得本文还不错或者对您有帮助，可以考虑打赏一下作者哦">打赏本文</span>
+                    </span>
+                </div>
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span  data-toggle="modal" data-target="#post-qrcode-content">
+                        <span><span id="post-qrcode-btn" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="微信扫描二维码手机端查看本文及分享本文">二维码</span></span>
+                    </span>
+                </div>
+            </div>
+        <div class="post-more-function-br"></div>
+{# 打赏模态框 #}
+        <div class="modal fade" id="post-donate-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">打赏本文</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-donate-content">
+                            <div class="col-md-4">
+                                <p>支付宝</p>
+                                <img class="post-donate-content-img no-lightbox" src="{{ theme.alipay }}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <p>微信</p>
+                                <img class="post-donate-content-img no-lightbox" src="{{ theme.wechat }}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <p>财付通</p>
+                                <img class="post-donate-content-img no-lightbox" src="{{ theme.qq }}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{# 文章二维码模态框 #}
+        <div class="modal fade" id="post-qrcode-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">文章二维码</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-qrcode-content">
+                            <span class="post-qrcode-content-canvas"></span>
+                            <img class="post-qrcode-content-img no-lightbox" src=""/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# 文章页二维码生成脚本 #}
+        <script>
+            // post QRcode
+            // 中文转码
+            function toUtf8(str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            }
+            // 生成
+            var qrcode= $('.post-qrcode-content-canvas').qrcode({width: 150,height: 150,text: toUtf8("{{ page.permalink }}")}).hide();
+            var canvas=qrcode.find('canvas').get(0);
+            $('.post-qrcode-content-img').attr('src',canvas.toDataURL('image/jpg'));
+        </script>
 
-<body>
-  <header id="header" class="inner"><nav>
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-</nav></header>
-  <div id="content" class="inner"><article class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
+        {% if theme.disqus.enable==true %}
+        {# disqus评论 #}
+            <div id="disqus_thread"></div>
+            <script data-no-instant>
+                $(document).ready(function() {
+                    $('.post-comments-btn').on('click', function(){
+                        var disqus_shortname = '{{ theme.disqus.name }}';
+                        $.ajax({
+                            type: "GET",
+                            url: "https://" + disqus_shortname + ".disqus.com/embed.js",
+                            dataType: "script",
+                            cache: true
+                        });
+                        $('.post-more-function-br').css('height','.6em');
+                    });
+                });
+                var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
+                    DISQUS.reset({
+                        reload: true,
+                        config: function () {
+                            this.page.identifier = newIdentifier;
+                            this.page.url = newUrl;
+                            this.page.title = newTitle;
+                            this.language = newLanguage;
+                        }
+                    });
+                };
+            </script>
+            {% endif %}
+    </article>
+    {% if theme.valine_enable==true %}
+      <article class="blog-post-block blog-post-page-content" style="margin-top:2.5em;">
+      {#valine评论#}
+      <div class="comment"></div>
+      <script>
+          new Valine({
+              av: AV, // source from av-min.js
+              el: '.comment' ,
+              notify:false, // 邮件提醒 v1.1.4新增
+              verify:false, // 验证码 v1.1.4新增
+              app_id: '{{theme.leancloud.app_id}}',
+              app_key: '{{theme.leancloud.app_key}}',
+              placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+              path:window.location.pathname // 路径配置 v1.1.5新增，可填window.location.href
+          });
+      </script>
+      </article>
+      {% endif %}
 </div>
-  
-  <header>
-    
-  
-    <h1 class="p-name title" itemprop="headline name">Markdown语法学习 标题ID篇</h1>
-  
-
-    <time class="dt-published" datetime="2024-09-12T06:46:53.000Z">
-  <span class="day">12</span><span class="month">Sep</span>
-</time>
-  </header>
-  <div class="e-content entry-content">
-    
-      <h2 id="标题ID"><a href="#标题ID" class="headerlink" title="标题ID"></a>标题ID</h2><p>许多Markdown处理器支持<a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/headings.html">标题</a>的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### My Great Heading &#123;#custom-id&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>HTML看起来像这样：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;custom-id&quot;</span>&gt;</span>My Great Heading<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="链接到标题ID-headid"><a href="#链接到标题ID-headid" class="headerlink" title="#链接到标题ID (#headid)"></a><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#%E9%93%BE%E6%8E%A5%E5%88%B0%E6%A0%87%E9%A2%98id-headid">#</a>链接到标题ID (#headid)</h2><p>通过创建带有数字符号（<code>#</code>）和自定义标题ID的<a href="(/basic-syntax/links.html">标准链接</a>，可以链接到文件中具有自定义ID的标题。</p>
-<table>
-<thead>
-<tr>
-<th>Markdown</th>
-<th>HTML</th>
-<th>预览效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>[Heading IDs](#heading-ids)</code></td>
-<td><code>&lt;a href=&quot;#heading-ids&quot;&gt;Heading IDs&lt;/a&gt;</code></td>
-<td><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#heading-ids">Heading IDs</a></td>
-</tr>
-</tbody></table>
-<p>其他网站可以通过将自定义标题ID添加到网页的完整URL（例如<code>[Heading IDs](https://markdown.com.cn/extended-syntax/heading-ids.html#headid)</code>）来链接到标题。</p>
-<hr>
-<h3 id="实践总结："><a href="#实践总结：" class="headerlink" title="实践总结："></a>实践总结：</h3><p>hexo在处理md文件生成静态文件时，会自动为标题添加ID，所以当自定义标题id后，hexo在执行generate指令时就会出错。</p>
-<p>hexo为标题添加的ID就是标题的名称，所以链接到标题ID的处理方法就是(<code>[文本](#标题名称)</code>)，测试：</p>
-<p>本页内链接到<a href="#%E6%A0%87%E9%A2%98ID">标题ID</a></p>
-<p>链接到其他页面的<a target="_blank" rel="noopener" href="https://ftosky.eu.org/2024/09/12/24091202/#Markdown-%E8%84%9A%E6%B3%A8">Markdown脚注</a></p>
-<hr>
-<p>同名称的标题系统如何赋ID？第一个标题的ID是<code>#标题名称</code>，第二个标题的ID是<code>#标题名称-1</code>，第三个标题的ID是<code>标题名称-2</code>，以此类推。</p>
-<p>第一个标题</p>
-<h3 id="这是标题"><a href="#这是标题" class="headerlink" title="这是标题"></a>这是标题</h3><p>第二个标题</p>
-<h3 id="这是标题-1"><a href="#这是标题-1" class="headerlink" title="这是标题"></a>这是标题</h3><p>第三个标题</p>
-<h3 id="这是标题-2"><a href="#这是标题-2" class="headerlink" title="这是标题"></a>这是标题</h3>
-    
-    
-    <footer class="meta">
-      
-      
-  <div class="tags">
-<a href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a><a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a><a href="/tags/%E6%A0%87%E9%A2%98ID/">标题ID</a></div>
-
-      
-    </footer>
-    
-      
-
-    
-    
-  </div>
-  
-</article>
-</div>
-  <footer id="footer" class="inner"><div class="social alignright">
-  
-  
-  
-  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
-</div>
-<p>
-  
-  &copy; 2026 Pocser
-  
-</p>
-<div class="clearfix"></div></footer>
-  
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-
-
-<script src="/js/gallery.js"></script>
-
-
-
-
-
-
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-<script>
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-<div id="phasebeam">
-  <canvas></canvas>
-  <canvas></canvas>
-  <canvas></canvas>
-</div>
-
-<script src="/js/phasebeam.js"></script>
-
-</body>
-</html>
+{% endblock %}

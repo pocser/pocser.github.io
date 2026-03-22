@@ -1,158 +1,214 @@
-<!DOCTYPE html>
- <html lang="zh-CN"> 
-<head>
-  <meta charset="utf-8">
-  
-  <title>解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME） | 疏影横斜</title>
-  <meta name="author" content="Pocser">
+{% extends 'includes/layout.swig' %}
 
-  
-  <meta name="description" content="本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：
-当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，">
-  
+{% block body %}
+<header class="blog-post-page-title">
+    <h4>{{ page.title }}</h4>
+    <time datetime="{{ page.date.toJSON() }}"><i class="fa fa-clock-o"></i>{{ date(page.date) }}</time>
+    {# 文章阅读次数 #}
+    {% if theme.LeanStatistics_enable==true %}
+    <span>
+        <i class="fa fa-eye"></i>
+        <span id="{{ url_for(page.path) }}" class="views views-post"  title="{{ page.title }}"></span>
+    </span>
+    {% endif %}
+    {# 文章阅读次数 #}
+    {# 文章分类 #}
+	{% if page.categories and page.categories.length %}
+        <span><i class="fa fa-folder-o"></i>
+    		{% for categories in page.categories %}
+    	       <a href="{{ url_for(categories.path) }}" rel="categories" data-toggle="tooltip" data-placement="top" title="Linux">{{ categories.name }}</a>
+    		{% endfor %}
+        </span>
+	{% endif %}
+    {# 文章分类 #}
+</header>
+<div class="blog-main-post blog-post-page-box">
+    <article class="blog-post-block blog-post-page-content">
+        <section>
+            {% if theme.post_excerpt==true %}
+                {{ page.content }}
+            {% else %}
+                {{ page.more }}
+            {% endif %}
+        </section>
+        <footer class="blog-post-page-tags">
+        {# 文章标签 #}
+			{% if page.tags and page.tags.length %}
+				{% for tag in page.tags %}
+			<a href="{{ url_for(tag.path) }}" rel="tag" data-toggle="tooltip" data-placement="top" title="Linux">{{ tag.name }}</a>
+				{% endfor %}
+			{% endif %}
+		{# 文章标签 #}
+        </footer>
+    </article>
+    <article class="blog-post-page-readmore">
+    	{# {% include 'includes/pagination.swig' %} #}
+    	{# 上一篇 #}
+		{% if page.prev_link %}
+			<a href="{{ url_for(page.prev_link) }}" class="blog-post-page-readmore-prev" data-toggle="tooltip" data-placement="top" title="{{ page.prev.title }}">上一篇</a>
+			{% elif page.prev && page.prev.path %}
+			<a href="{{ url_for(page.prev.path) }}" class="blog-post-page-readmore-prev" data-toggle="tooltip" data-placement="top" title="{{ page.prev.title }}">上一篇</a>
+		{% endif %}
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+		{# 下一篇 #}
+		{% if page.next_link %}
+			<a href="{{ url_for(page.next_link) }}" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">下一篇</a>
+			{% elif page.next && page.next.path %}
+			<a href="{{ url_for(page.next.path) }}" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">下一篇</a>
+		{% endif %}
 
-  
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+        <div style="clear: both;"></div>
+    </article>
 
-  
-  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
-  
-<meta name="generator" content="Hexo 8.1.1"></head>
+    <article class="blog-post-block blog-post-page-content">
+            <div class="row">
+            {% if theme.comment==true %}
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span class="post-comments-btn btn btn-info btn-block" data-toggle="tooltip" data-placement="top" title="本站采用Disqus评论组件，若您没有科学上网可能会无法查看并评论">加载评论</span>
+                </div>
+            {% endif %}
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span  data-toggle="modal" data-target="#post-donate-content">
+                        <span id="post-donate-btn" class="btn btn-danger btn-block" data-toggle="tooltip" data-placement="top" title="如果您觉得本文还不错或者对您有帮助，可以考虑打赏一下作者哦">打赏本文</span>
+                    </span>
+                </div>
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span  data-toggle="modal" data-target="#post-qrcode-content">
+                        <span><span id="post-qrcode-btn" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="微信扫描二维码手机端查看本文及分享本文">二维码</span></span>
+                    </span>
+                </div>
+            </div>
+        <div class="post-more-function-br"></div>
+{# 打赏模态框 #}
+        <div class="modal fade" id="post-donate-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">打赏本文</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-donate-content">
+                            <div class="col-md-4">
+                                <p>支付宝</p>
+                                <img class="post-donate-content-img no-lightbox" src="{{ theme.alipay }}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <p>微信</p>
+                                <img class="post-donate-content-img no-lightbox" src="{{ theme.wechat }}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <p>财付通</p>
+                                <img class="post-donate-content-img no-lightbox" src="{{ theme.qq }}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{# 文章二维码模态框 #}
+        <div class="modal fade" id="post-qrcode-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">文章二维码</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-qrcode-content">
+                            <span class="post-qrcode-content-canvas"></span>
+                            <img class="post-qrcode-content-img no-lightbox" src=""/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# 文章页二维码生成脚本 #}
+        <script>
+            // post QRcode
+            // 中文转码
+            function toUtf8(str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            }
+            // 生成
+            var qrcode= $('.post-qrcode-content-canvas').qrcode({width: 150,height: 150,text: toUtf8("{{ page.permalink }}")}).hide();
+            var canvas=qrcode.find('canvas').get(0);
+            $('.post-qrcode-content-img').attr('src',canvas.toDataURL('image/jpg'));
+        </script>
 
-<body>
-  <header id="header" class="inner"><nav>
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-</nav></header>
-  <div id="content" class="inner"><article class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
+        {% if theme.disqus.enable==true %}
+        {# disqus评论 #}
+            <div id="disqus_thread"></div>
+            <script data-no-instant>
+                $(document).ready(function() {
+                    $('.post-comments-btn').on('click', function(){
+                        var disqus_shortname = '{{ theme.disqus.name }}';
+                        $.ajax({
+                            type: "GET",
+                            url: "https://" + disqus_shortname + ".disqus.com/embed.js",
+                            dataType: "script",
+                            cache: true
+                        });
+                        $('.post-more-function-br').css('height','.6em');
+                    });
+                });
+                var reset = function (newIdentifier, newUrl, newTitle, newLanguage) {
+                    DISQUS.reset({
+                        reload: true,
+                        config: function () {
+                            this.page.identifier = newIdentifier;
+                            this.page.url = newUrl;
+                            this.page.title = newTitle;
+                            this.language = newLanguage;
+                        }
+                    });
+                };
+            </script>
+            {% endif %}
+    </article>
+    {% if theme.valine_enable==true %}
+      <article class="blog-post-block blog-post-page-content" style="margin-top:2.5em;">
+      {#valine评论#}
+      <div class="comment"></div>
+      <script>
+          new Valine({
+              av: AV, // source from av-min.js
+              el: '.comment' ,
+              notify:false, // 邮件提醒 v1.1.4新增
+              verify:false, // 验证码 v1.1.4新增
+              app_id: '{{theme.leancloud.app_id}}',
+              app_key: '{{theme.leancloud.app_key}}',
+              placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+              path:window.location.pathname // 路径配置 v1.1.5新增，可填window.location.href
+          });
+      </script>
+      </article>
+      {% endif %}
 </div>
-  
-  <header>
-    
-  
-    <h1 class="p-name title" itemprop="headline name">解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）</h1>
-  
-
-    <time class="dt-published" datetime="2024-08-31T11:55:42.000Z">
-  <span class="day">31</span><span class="month">Aug</span>
-</time>
-  </header>
-  <div class="e-content entry-content">
-    
-      <p>本文内容来自<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41747528/article/details/102772937">csdn</a>上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：</p>
-<p>当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。</p>
-<h3 id="情形1：未添加-CNAME"><a href="#情形1：未添加-CNAME" class="headerlink" title="情形1：未添加 CNAME"></a>情形1：未添加 CNAME</h3><h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h5><ol>
-<li><p>找到 hexo 博客根目录下的 source 文件夹。注意，不是主题的 source 文件夹。当 hexo 生成静态页面时，根目录下的 source 文件夹中的内容，就会在生成的网页根目录中（你可以在部署到github后，在仓库中查看，此时本地根目录下source文件夹的内容就在仓库的根目下）。<br><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgpff"><img src="https://s21.ax1x.com/2024/08/31/pAEgpff.png" alt="pAEgpff.png"></a></p>
-</li>
-<li><p>新建一个文件，名为 CNAME ，内容为你的域名（不包括www.或http等等）。如图：</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgwcD"><img src="https://s21.ax1x.com/2024/08/31/pAEgwcD.png" alt="pAEgwcD.png"></a></p>
-<p><strong>注意：</strong><br>——- 名为 CNAME，全部大写，没有后缀。<br>——- 内容只包含一个域名，且不含 www. 或 http 等。<br>——- 放到根目录下的source文件夹中。</p>
-<ol start="3">
-<li>hexo g -d</li>
-</ol>
-<p>执行完毕后登陆github，找到仓库，settings，查看域名是否已经更改，或者直接用域名尝试访问。<br><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgW38"><img src="https://s21.ax1x.com/2024/08/31/pAEgW38.png" alt="pAEgW38.png"></a></p>
-<h3 id="情形2：已添加-CNAME"><a href="#情形2：已添加-CNAME" class="headerlink" title="情形2：已添加 CNAME"></a>情形2：已添加 CNAME</h3><h5 id="解决方案：-1"><a href="#解决方案：-1" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h5><ol>
-<li>首先进入github仓库查看 CNAME是否出现在根目录中，如图所示：</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEghjg"><img src="https://s21.ax1x.com/2024/08/31/pAEghjg.png" alt="pAEghjg.png"></a></p>
-<p>​    若没有，则请返回第一种情况，认真检查自己的 CNAME 的路径是否正确。</p>
-<ol start="2">
-<li>若仓库根目录存在 CNAME 文件，请按照以下步骤检查：<br>——- 情形1步骤2中的注意点，是否都符合要求？<br>——- <em><strong>若感觉符合要求！！！请你务必注意你的文件后缀！！！</strong></em></li>
-</ol>
-<p><strong>首先</strong>，看你的电脑是不是把后缀自动隐藏了，虽然你命名时，只输入了CNAME，但是它有可能会自动生成一个后缀，且隐藏。假如你用 mac，用文本编辑，命名为CNAME 保存后，有可能会自动加上后缀，但是 mac又很鬼畜的把后缀给隐藏了！！</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEg7En"><img src="https://s21.ax1x.com/2024/08/31/pAEg7En.png" alt="pAEg7En.png"></a></p>
-<p>一定要注意！！保存时留意一下格式。</p>
-<p><strong>其次</strong>，如果你发现你文件格式不对，不要直接把它的后缀去掉，有可能会出错。</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgO3T"><img src="https://s21.ax1x.com/2024/08/31/pAEgO3T.png" alt="pAEgO3T.png"></a></p>
-<p>如果这样直接修改，表面上是满足要求了，但仍可能出错。</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgXgU"><img src="https://s21.ax1x.com/2024/08/31/pAEgXgU.png" alt="pAEgXgU.png"></a></p>
-<p>因为它会认为你的文件已经损坏了，所以你应该重新建好一个 CNAME 无后缀文件，并将其替代。至此问题解决。</p>
-<p>新建无后缀文件可以使用<strong>touch</strong>命令。<br>使用命令行，<strong>cd</strong> 到指定目录，然后 <strong>touch filename</strong>，这样就新建了一个名为filename的无后缀文件。</p>
-
-    
-    
-    <footer class="meta">
-      
-      
-  <div class="tags">
-<a href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/">域名, 失效, 自定义, hexo, 部署</a></div>
-
-      
-    </footer>
-    
-      
-
-    
-    
-  </div>
-  
-</article>
-</div>
-  <footer id="footer" class="inner"><div class="social alignright">
-  
-  
-  
-  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
-</div>
-<p>
-  
-  &copy; 2026 Pocser
-  
-</p>
-<div class="clearfix"></div></footer>
-  
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-
-
-<script src="/js/gallery.js"></script>
-
-
-
-
-
-
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-<script>
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-<div id="phasebeam">
-  <canvas></canvas>
-  <canvas></canvas>
-  <canvas></canvas>
-</div>
-
-<script src="/js/phasebeam.js"></script>
-
-</body>
-</html>
+{% endblock %}
