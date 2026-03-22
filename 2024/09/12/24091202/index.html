@@ -1,65 +1,145 @@
-extends partial/layout
+<!DOCTYPE html>
+ <html lang="zh-CN"> 
+<head>
+  <meta charset="utf-8">
+  
+  <title>Markdown语法学习 第三次 | 疏影横斜</title>
+  <meta name="author" content="Pocser">
 
-block site_title
-    != page.title
-block styles
-    != css('css/index.css?v='+date(Date.now(), 'YYYYMMDDHHmm'),'css/info.css?v='+date(Date.now(), 'YYYYMMDDHHmm'))
-    link(href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css", rel='stylesheet')
-block container
-    main
-        .con_warp
-            .infosbox
-                .newsview
-                    h3.news_title!= page.title
-                    .bloginfo
-                        ul
-                            li.author
-                                | 作者：
-                                a(href='/')!= getValue(page, "author") || getConfig('author')
-                            li.lmname
-                                a(href='/')!= getValue(page, "categories.data.0.name")
-                            li.timer!= '时间：' + date(page.date, "YYYY-MM-DD HH:mm:ss")
-                            li.view
-                                span#busuanzi_value_page_pv 99
-                                span 次访问
-                    .tags
-                        each tag in getValue(page,"tags.data",[])
-                            a(href=url_for(tag.path), target='_blank')!= tag.name
-                    - if(page.excerpt)
-                        .news_about
-                            strong 简介
-                            != page.excerpt
-                     .news_con!= page.more || page.content
-                .nextinfo
-                    p 上一篇：
-                        - var prev = getValue(page,"prev");
-                        if(prev)
-                            a(href=url_for(prev.path))!= prev.title
-                        else
-                            != '没有了'
-                    p 下一篇：
-                        - var next = getValue(page,"next");
-                            if(next)
-                                a(href=url_for(next.path))!= next.title
-                            else
-                                != '没有了'
-                - if(page.comments)
-                    .news_pl
-                        include mixins/scripts
-                        +comment()
-    aside.r_box
-        include mixins/right
-        +card()
-        +category()
-        +wechat()
+  
+  <meta name="description" content="Markdown语法学习 第三次Markdown 脚注脚注使您可以添加注释和参考，而不会使文档正文混乱。当您创建脚注时，带有脚注的上标数字会出现在您添加脚注参考的位置。读者可以单击链接以跳至页面底部的脚注内容。
+要创建脚注参考，请在方括号（[^1]）内添加插入符号和标识符。标识符可以是数字或单词，但">
+  
 
-block scripts
-    include mixins/scripts
-    +canvas()
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/highlight.min.js")
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/java.min.js")
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/javascript.min.js")
-    script(type='text/javascript').
-        hljs.initHighlightingOnLoad();
-    script(async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js")
-    != js('js/common.js?v='+date(Date.now(), 'YYYYMMDDHHmm'),'js/index.js?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="p-name title" itemprop="headline name">Markdown语法学习 第三次</h1>
+  
+
+    <time class="dt-published" datetime="2024-09-12T06:34:41.000Z">
+  <span class="day">12</span><span class="month">Sep</span>
+</time>
+  </header>
+  <div class="e-content entry-content">
+    
+      <h2 id="Markdown语法学习-第三次"><a href="#Markdown语法学习-第三次" class="headerlink" title="Markdown语法学习 第三次"></a>Markdown语法学习 第三次</h2><h2 id="Markdown-脚注"><a href="#Markdown-脚注" class="headerlink" title="Markdown 脚注"></a>Markdown 脚注</h2><p>脚注使您可以添加注释和参考，而不会使文档正文混乱。当您创建脚注时，带有脚注的上标数字会出现在您添加脚注参考的位置。读者可以单击链接以跳至页面底部的脚注内容。</p>
+<p>要创建脚注参考，请在方括号（<code>[^1]</code>）内添加插入符号和标识符。标识符可以是数字或单词，但不能包含空格或制表符。标识符仅将脚注参考与脚注本身相关联-在输出中，脚注按顺序编号。</p>
+<p>在括号内使用另一个插入符号和数字添加脚注，并用冒号和文本（<code>[^1]: My footnote.</code>）。您不必在文档末尾添加脚注。您可以将它们放在除列表，块引号和表之类的其他元素之外的任何位置。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Here&#x27;s a simple footnote,[^1] and here&#x27;s a longer one.[^bignote]</span><br><span class="line"></span><br><span class="line">[^1]: This is the first footnote.</span><br><span class="line"></span><br><span class="line">[^bignote]: Here&#x27;s one with multiple paragraphs and code.</span><br><span class="line"></span><br><span class="line">    Indent paragraphs to include them in the footnote.</span><br><span class="line"></span><br><span class="line">    `&#123; my code &#125;`</span><br><span class="line"></span><br><span class="line">    Add as many paragraphs as you like.</span><br></pre></td></tr></table></figure>
+
+<p>呈现结果如下：</p>
+<p>Here’s a simple footnote,[^1] and here’s a longer one.[^bignote]</p>
+<p>[^1]: This is the first footnote.</p>
+<p>[^bignote]: Here’s one with multiple paragraphs and code.</p>
+<pre><code>Indent paragraphs to include them in the footnote.
+
+`{ my code }`
+
+Add as many paragraphs as you like.
+</code></pre>
+<p>这是第三种脚注用法:[^3]</p>
+<p>[^3]: My footnote3.</p>
+<hr>
+
+    
+    
+    <footer class="meta">
+      
+      
+  <div class="tags">
+<a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a></div>
+
+      
+    </footer>
+    
+      
+
+    
+    
+  </div>
+  
+</article>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2026 Pocser
+  
+</p>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+
+<script src="/js/phasebeam.js"></script>
+
+</body>
+</html>

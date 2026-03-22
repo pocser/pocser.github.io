@@ -1,65 +1,159 @@
-extends partial/layout
+<!DOCTYPE html>
+ <html lang="zh-CN"> 
+<head>
+  <meta charset="utf-8">
+  
+  <title>Markdown语法学习 标题ID篇 | 疏影横斜</title>
+  <meta name="author" content="Pocser">
 
-block site_title
-    != page.title
-block styles
-    != css('css/index.css?v='+date(Date.now(), 'YYYYMMDDHHmm'),'css/info.css?v='+date(Date.now(), 'YYYYMMDDHHmm'))
-    link(href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css", rel='stylesheet')
-block container
-    main
-        .con_warp
-            .infosbox
-                .newsview
-                    h3.news_title!= page.title
-                    .bloginfo
-                        ul
-                            li.author
-                                | 作者：
-                                a(href='/')!= getValue(page, "author") || getConfig('author')
-                            li.lmname
-                                a(href='/')!= getValue(page, "categories.data.0.name")
-                            li.timer!= '时间：' + date(page.date, "YYYY-MM-DD HH:mm:ss")
-                            li.view
-                                span#busuanzi_value_page_pv 99
-                                span 次访问
-                    .tags
-                        each tag in getValue(page,"tags.data",[])
-                            a(href=url_for(tag.path), target='_blank')!= tag.name
-                    - if(page.excerpt)
-                        .news_about
-                            strong 简介
-                            != page.excerpt
-                     .news_con!= page.more || page.content
-                .nextinfo
-                    p 上一篇：
-                        - var prev = getValue(page,"prev");
-                        if(prev)
-                            a(href=url_for(prev.path))!= prev.title
-                        else
-                            != '没有了'
-                    p 下一篇：
-                        - var next = getValue(page,"next");
-                            if(next)
-                                a(href=url_for(next.path))!= next.title
-                            else
-                                != '没有了'
-                - if(page.comments)
-                    .news_pl
-                        include mixins/scripts
-                        +comment()
-    aside.r_box
-        include mixins/right
-        +card()
-        +category()
-        +wechat()
+  
+  <meta name="description" content="标题ID许多Markdown处理器支持标题的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。
+1### My Great Heading &amp;#123;#custo">
+  
 
-block scripts
-    include mixins/scripts
-    +canvas()
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/highlight.min.js")
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/java.min.js")
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/javascript.min.js")
-    script(type='text/javascript').
-        hljs.initHighlightingOnLoad();
-    script(async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js")
-    != js('js/common.js?v='+date(Date.now(), 'YYYYMMDDHHmm'),'js/index.js?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="p-name title" itemprop="headline name">Markdown语法学习 标题ID篇</h1>
+  
+
+    <time class="dt-published" datetime="2024-09-12T06:46:53.000Z">
+  <span class="day">12</span><span class="month">Sep</span>
+</time>
+  </header>
+  <div class="e-content entry-content">
+    
+      <h2 id="标题ID"><a href="#标题ID" class="headerlink" title="标题ID"></a>标题ID</h2><p>许多Markdown处理器支持<a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/headings.html">标题</a>的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### My Great Heading &#123;#custom-id&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>HTML看起来像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;custom-id&quot;</span>&gt;</span>My Great Heading<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="链接到标题ID-headid"><a href="#链接到标题ID-headid" class="headerlink" title="#链接到标题ID (#headid)"></a><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#%E9%93%BE%E6%8E%A5%E5%88%B0%E6%A0%87%E9%A2%98id-headid">#</a>链接到标题ID (#headid)</h2><p>通过创建带有数字符号（<code>#</code>）和自定义标题ID的<a href="(/basic-syntax/links.html">标准链接</a>，可以链接到文件中具有自定义ID的标题。</p>
+<table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>HTML</th>
+<th>预览效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[Heading IDs](#heading-ids)</code></td>
+<td><code>&lt;a href=&quot;#heading-ids&quot;&gt;Heading IDs&lt;/a&gt;</code></td>
+<td><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#heading-ids">Heading IDs</a></td>
+</tr>
+</tbody></table>
+<p>其他网站可以通过将自定义标题ID添加到网页的完整URL（例如<code>[Heading IDs](https://markdown.com.cn/extended-syntax/heading-ids.html#headid)</code>）来链接到标题。</p>
+<hr>
+<h3 id="实践总结："><a href="#实践总结：" class="headerlink" title="实践总结："></a>实践总结：</h3><p>hexo在处理md文件生成静态文件时，会自动为标题添加ID，所以当自定义标题id后，hexo在执行generate指令时就会出错。</p>
+<p>hexo为标题添加的ID就是标题的名称，所以链接到标题ID的处理方法就是(<code>[文本](#标题名称)</code>)，测试：</p>
+<p>本页内链接到<a href="#%E6%A0%87%E9%A2%98ID">标题ID</a></p>
+<p>链接到其他页面的<a target="_blank" rel="noopener" href="https://ftosky.eu.org/2024/09/12/24091202/#Markdown-%E8%84%9A%E6%B3%A8">Markdown脚注</a></p>
+<hr>
+<p>同名称的标题系统如何赋ID？第一个标题的ID是<code>#标题名称</code>，第二个标题的ID是<code>#标题名称-1</code>，第三个标题的ID是<code>标题名称-2</code>，以此类推。</p>
+<p>第一个标题</p>
+<h3 id="这是标题"><a href="#这是标题" class="headerlink" title="这是标题"></a>这是标题</h3><p>第二个标题</p>
+<h3 id="这是标题-1"><a href="#这是标题-1" class="headerlink" title="这是标题"></a>这是标题</h3><p>第三个标题</p>
+<h3 id="这是标题-2"><a href="#这是标题-2" class="headerlink" title="这是标题"></a>这是标题</h3>
+    
+    
+    <footer class="meta">
+      
+      
+  <div class="tags">
+<a href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a><a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a><a href="/tags/%E6%A0%87%E9%A2%98ID/">标题ID</a></div>
+
+      
+    </footer>
+    
+      
+
+    
+    
+  </div>
+  
+</article>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2026 Pocser
+  
+</p>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+
+<script src="/js/phasebeam.js"></script>
+
+</body>
+</html>

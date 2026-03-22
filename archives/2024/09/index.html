@@ -1,40 +1,213 @@
-extends partial/layout
+<!DOCTYPE html>
+ <html lang="zh-CN"> 
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2024/9 | 疏影横斜</title>
+  <meta name="author" content="Pocser">
 
-block styles
-    != css('css/index.css?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+  
 
-block container
-    main
-        div.blogtab
-            each item in page.posts.data
-                .blogs(data-scroll-reveal="enter bottom over 1s")
-                    h3.blogtitle
-                        a(href=url_for(item.path), target='_blank')= item.title
-                    span.blogpic
-                        a(href=url_for(item.path), title=item.title)
-                            img(src=url_for(item.cover_picture), alt='')
-                    p.blogtext!= item.excerpt || truncate(strip_html(item.content), {length: 120})
-                    .bloginfo
-                        ul
-                            li.author
-                                a(href='/')!= item.author || getConfig('author')
-                            li.lmname
-                                a(href=url_for(getValue(item, "categories.data.0.path")))!= getValue(item, "categories.data.0.name")
-                            li.timer!= date(item.date, 'YYYY-MM-DD HH:mm:ss')
-                            //li.view
-                            //    span 34567
-                            //    | 已阅读
-                            //li.like 9999
-        .pagelist
-            !=paginator({prev_text:"<i class='iconfont icon-page-pre' ></i>",next_text:"<i class='iconfont icon-page-next' ></i>",escape: false})
-    aside.r_box
-        include mixins/right
-        +card()
-        +category()
-        +recommend()
-        +tags()
-        +wechat()
-block scripts
-    include mixins/scripts
-    +canvas()
-    != js('js/common.js?v='+date(Date.now(), 'YYYYMMDDHHmm'), 'js/index.js?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner">
+
+<header id="archive-header">
+  <h1 class="alignleft">Archives: 2024/9</h1>
+  <div class="search alignright">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" results="0" placeholder="Search">
+      <input type="hidden" name="q" value="site:example.com">
+    </form>
+  </div>
+</header>
+
+
+
+  
+  
+    
+    </section><section class="archives"><div class="year">2024</div>
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/15/24091501/">月饼是最成功又最难吃的节日食品</a></h1>
+    <footer>
+      <time datetime="2024-09-15T00:08:04.000Z">Sep 15</time>
+      
+      
+        <span class="tags">
+<a href="/tags/%E6%9C%88%E9%A5%BC/">月饼</a>, <a href="/tags/%E9%9A%BE%E5%90%83/">难吃</a>, <a href="/tags/%E4%B8%AD%E7%A7%8B%E8%8A%82/">中秋节</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/13/24091301/">Markdown语法学习最终篇</a></h1>
+    <footer>
+      <time datetime="2024-09-13T11:56:21.000Z">Sep 13</time>
+      
+      
+        <span class="tags">
+<a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/12/24091203/">Markdown语法学习 标题ID篇</a></h1>
+    <footer>
+      <time datetime="2024-09-12T06:46:53.000Z">Sep 12</time>
+      
+      
+        <span class="tags">
+<a href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a>, <a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a>, <a href="/tags/%E6%A0%87%E9%A2%98ID/">标题ID</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/12/24091202/">Markdown语法学习 第三次</a></h1>
+    <footer>
+      <time datetime="2024-09-12T06:34:41.000Z">Sep 12</time>
+      
+      
+        <span class="tags">
+<a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/12/24091201/">Markdown语法学习 第二次</a></h1>
+    <footer>
+      <time datetime="2024-09-12T06:31:13.000Z">Sep 12</time>
+      
+      
+        <span class="tags">
+<a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/06/24090601/">markdown语法学习笔记</a></h1>
+    <footer>
+      <time datetime="2024-09-06T07:10:07.000Z">Sep 6</time>
+      
+      
+        <span class="tags">
+<a href="/tags/markdown%E8%AF%AD%E6%B3%95/">markdown语法</a>, <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/01/24090102/">学习一下markdown语法</a></h1>
+    <footer>
+      <time datetime="2024-09-01T13:17:34.000Z">Sep 1</time>
+      
+      
+        <span class="tags">
+<a href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a>, <a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a></span>
+      
+    </footer>
+  </article>
+
+  
+  
+  <article class="archive">
+    <h1 class="title"><a href="/2024/09/01/24090101/">开学第一课</a></h1>
+    <footer>
+      <time datetime="2024-09-01T13:01:37.000Z">Sep 1</time>
+      
+      
+        <span class="tags">
+<a href="/tags/%E5%BC%80%E5%AD%A6%E7%AC%AC%E4%B8%80%E8%AF%BE/">开学	第一课</a></span>
+      
+    </footer>
+  </article>
+
+<nav id="pagenavi">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2026 Pocser
+  
+</p>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+
+<script src="/js/phasebeam.js"></script>
+
+</body>
+</html>

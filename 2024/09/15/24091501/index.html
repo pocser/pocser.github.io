@@ -1,65 +1,135 @@
-extends partial/layout
+<!DOCTYPE html>
+ <html lang="zh-CN"> 
+<head>
+  <meta charset="utf-8">
+  
+  <title>月饼是最成功又最难吃的节日食品 | 疏影横斜</title>
+  <meta name="author" content="Pocser">
 
-block site_title
-    != page.title
-block styles
-    != css('css/index.css?v='+date(Date.now(), 'YYYYMMDDHHmm'),'css/info.css?v='+date(Date.now(), 'YYYYMMDDHHmm'))
-    link(href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css", rel='stylesheet')
-block container
-    main
-        .con_warp
-            .infosbox
-                .newsview
-                    h3.news_title!= page.title
-                    .bloginfo
-                        ul
-                            li.author
-                                | 作者：
-                                a(href='/')!= getValue(page, "author") || getConfig('author')
-                            li.lmname
-                                a(href='/')!= getValue(page, "categories.data.0.name")
-                            li.timer!= '时间：' + date(page.date, "YYYY-MM-DD HH:mm:ss")
-                            li.view
-                                span#busuanzi_value_page_pv 99
-                                span 次访问
-                    .tags
-                        each tag in getValue(page,"tags.data",[])
-                            a(href=url_for(tag.path), target='_blank')!= tag.name
-                    - if(page.excerpt)
-                        .news_about
-                            strong 简介
-                            != page.excerpt
-                     .news_con!= page.more || page.content
-                .nextinfo
-                    p 上一篇：
-                        - var prev = getValue(page,"prev");
-                        if(prev)
-                            a(href=url_for(prev.path))!= prev.title
-                        else
-                            != '没有了'
-                    p 下一篇：
-                        - var next = getValue(page,"next");
-                            if(next)
-                                a(href=url_for(next.path))!= next.title
-                            else
-                                != '没有了'
-                - if(page.comments)
-                    .news_pl
-                        include mixins/scripts
-                        +comment()
-    aside.r_box
-        include mixins/right
-        +card()
-        +category()
-        +wechat()
+  
+  <meta name="description" content="又一年中秋节假期到了。
+月饼仍是节日最紧俏的商品，不论在线上还是线下都销售的如火如荼。
+月饼可谓是最成功又最难吃的节日商品了。
+首先，不论生产成本是多少，精美的包装一上，价格几十上百倍的往上翻，人们还乐此不疲的购买。大部分人都把它作为节日礼品送给了亲朋好友，当然节日的时候也要应景一下，吃上一两块来。">
+  
 
-block scripts
-    include mixins/scripts
-    +canvas()
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/highlight.min.js")
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/java.min.js")
-    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/javascript.min.js")
-    script(type='text/javascript').
-        hljs.initHighlightingOnLoad();
-    script(async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js")
-    != js('js/common.js?v='+date(Date.now(), 'YYYYMMDDHHmm'),'js/index.js?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <header id="header" class="inner"><nav>
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+</nav></header>
+  <div id="content" class="inner"><article class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <header>
+    
+  
+    <h1 class="p-name title" itemprop="headline name">月饼是最成功又最难吃的节日食品</h1>
+  
+
+    <time class="dt-published" datetime="2024-09-15T00:08:04.000Z">
+  <span class="day">15</span><span class="month">Sep</span>
+</time>
+  </header>
+  <div class="e-content entry-content">
+    
+      <p>又一年中秋节假期到了。</p>
+<p>月饼仍是节日最紧俏的商品，不论在线上还是线下都销售的如火如荼。</p>
+<p>月饼可谓是最成功又最难吃的节日商品了。</p>
+<p>首先，不论生产成本是多少，精美的包装一上，价格几十上百倍的往上翻，人们还乐此不疲的购买。大部分人都把它作为节日礼品送给了亲朋好友，当然节日的时候也要应景一下，吃上一两块来。</p>
+<p>其次，相比于其他节日的传统美食，比如粽子、青团、元宵、汤圆这些，虽然也是节日食品，但是在非节日，还是有很多商店在售卖，而且又不少人把这些当成日常的食品，经常来果腹。但是月饼在中秋节之后，几乎无人问津了。节后第二天，超市里摆放的月饼价格几乎跟馒头差不多，商家真是害怕砸在手里。而由此就说明了，月饼其实并不是很好吃，最起码不符合大多数人的口味。</p>
+<p>所以，购买月饼还是要冷静哈。</p>
+
+    
+    
+    <footer class="meta">
+      
+      
+  <div class="tags">
+<a href="/tags/%E6%9C%88%E9%A5%BC/">月饼</a><a href="/tags/%E9%9A%BE%E5%90%83/">难吃</a><a href="/tags/%E4%B8%AD%E7%A7%8B%E8%8A%82/">中秋节</a></div>
+
+      
+    </footer>
+    
+      
+
+    
+    
+  </div>
+  
+</article>
+</div>
+  <footer id="footer" class="inner"><div class="social alignright">
+  
+  
+  
+  <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<p>
+  
+  &copy; 2026 Pocser
+  
+</p>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="phasebeam">
+  <canvas></canvas>
+  <canvas></canvas>
+  <canvas></canvas>
+</div>
+
+<script src="/js/phasebeam.js"></script>
+
+</body>
+</html>
