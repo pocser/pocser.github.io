@@ -1,57 +1,472 @@
-{% extends 'includes/layout.swig' %}
 
-{% block body %}
-<header class="blog-post-page-title blog-search-page-title">
-  <h4>标签<a href="">{{ page.tag }}</a>下的文章</h4>
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="疏影横斜">
+    <title>Tag: 标题ID - 疏影横斜</title>
+    <meta name="author" content="Pocser">
+    
+    
+    
+    <script type="application/ld+json">{}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="疏影横斜">
+<meta property="og:url" content="http://example.com/tags/%E6%A0%87%E9%A2%98ID/index.html">
+<meta property="og:site_name" content="疏影横斜">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Pocser">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            疏影横斜
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Öffne den Link: /#about"
+            >
+        
+        
+        </a>
+    
 </header>
-<div class="blog-main-post blog-post-page-box">
-  {% for article in page.posts.toArray() %}
-    <article class="blog-post-block">
-        {% if article.photos and article.photos.length > 0%}
-        <header>
-            <div class="blog-post-block-img">
-                <img src="{{ article.photos }}" alt="">
-            </div>
-        </header>
-        {% endif %}
-        <div class="blog-post-block-padding">
-          {% if article.link %}
-            <a href="{{ url_for(article.link) }}">{{ article.title || 'No Title' }}</a>
-          {% else %}
-            <a href="{{ url_for(article.path) }}">{{ article.title || 'No Title' }}</a>
-          {% endif %}
-            <section>
-              {% if article.excerpt.length > 0 %}
-                {{ article.excerpt }}
-              {% else %}
-                {% set content = article.content | striptags %}
-                {{ content.substring(0, theme.index_post.length) }}
-                {% if content.length > theme.auto_excerpt.length %}...{% endif %}
-              {% endif %}
-            </section>
-            <footer>
-                <time datetime="{{ date_xml(article.date) }}><i class="fa fa-clock-o"></i>{{ date(article.date) }}</time>
-                {# 文章阅读次数 #}
-                {% if theme.LeanStatistics_enable==true %}
-                <span>
-                    <i class="fa fa-eye"></i>
-                    <span id="{{ url_for(postItem.path) }}" class="views"  title="{{ postItem.title }}"></span>
-                </span>
-                {% endif %}
-                {# 文章阅读次数 #}
-                {% if article.categories and article.categories.length %}
-                  <span><i class="fa fa-folder-o"></i>
-                    {% for cat in article.categories %}
-                      <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index">
-                        {{ cat.name }}
-                      </a>
-                    {% endfor %}
-                  </span>
-                {% endif %}
-            </footer>
-        </div>
-    </article>
-  {% endfor %}
-    {% include 'includes/pagination.swig' %}
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="1">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Kategorien"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Kategorien</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archiv"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archiv</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Suche"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Suche</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="Über"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Über</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google Plus"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google Plus</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="E-Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">E-Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+    <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/09/12/24091203/"
+                            aria-label=": Markdown语法学习 标题ID篇"
+                        >
+                            Markdown语法学习 标题ID篇
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-09-12T14:46:53+08:00">
+	
+		    12 9月 2024
+    	
+    </time>
+    
 </div>
-{% endblock %}
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="标题ID"><a href="#标题ID" class="headerlink" title="标题ID"></a>标题ID</h2><p>许多Markdown处理器支持<a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/headings.html">标题</a>的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### My Great Heading &#123;#custom-id&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>HTML看起来像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;custom-id&quot;</span>&gt;</span>My Great Heading<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="链接到标题ID-headid"><a href="#链接到标题ID-headid" class="headerlink" title="#链接到标题ID (#headid)"></a><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#%E9%93%BE%E6%8E%A5%E5%88%B0%E6%A0%87%E9%A2%98id-headid">#</a>链接到标题ID (#headid)</h2><p>通过创建带有数字符号（<code>#</code>）和自定义标题ID的<a href="(/basic-syntax/links.html">标准链接</a>，可以链接到文件中具有自定义ID的标题。</p>
+<table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>HTML</th>
+<th>预览效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[Heading IDs](#heading-ids)</code></td>
+<td><code>&lt;a href=&quot;#heading-ids&quot;&gt;Heading IDs&lt;/a&gt;</code></td>
+<td><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#heading-ids">Heading IDs</a></td>
+</tr>
+</tbody></table>
+<p>其他网站可以通过将自定义标题ID添加到网页的完整URL（例如<code>[Heading IDs](https://markdown.com.cn/extended-syntax/heading-ids.html#headid)</code>）来链接到标题。</p>
+<hr>
+<h3 id="实践总结："><a href="#实践总结：" class="headerlink" title="实践总结："></a>实践总结：</h3><p>hexo在处理md文件生成静态文件时，会自动为标题添加ID，所以当自定义标题id后，hexo在执行generate指令时就会出错。</p>
+<p>hexo为标题添加的ID就是标题的名称，所以链接到标题ID的处理方法就是(<code>[文本](#标题名称)</code>)，测试：</p>
+<p>本页内链接到<a href="#%E6%A0%87%E9%A2%98ID">标题ID</a></p>
+<p>链接到其他页面的<a target="_blank" rel="noopener" href="https://ftosky.eu.org/2024/09/12/24091202/#Markdown-%E8%84%9A%E6%B3%A8">Markdown脚注</a></p>
+<hr>
+<p>同名称的标题系统如何赋ID？第一个标题的ID是<code>#标题名称</code>，第二个标题的ID是<code>#标题名称-1</code>，第三个标题的ID是<code>标题名称-2</code>，以此类推。</p>
+<p>第一个标题</p>
+<h3 id="这是标题"><a href="#这是标题" class="headerlink" title="这是标题"></a>这是标题</h3><p>第二个标题</p>
+<h3 id="这是标题-1"><a href="#这是标题-1" class="headerlink" title="这是标题"></a>这是标题</h3><p>第三个标题</p>
+<h3 id="这是标题-2"><a href="#这是标题-2" class="headerlink" title="这是标题"></a>这是标题</h3>
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/09/12/24091203/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
+        
+        
+        <li class="pagination-number">Seite 1 von 1</li>
+    </ul>
+</div>
+
+</section>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2026 Pocser. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Pocser</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+
+
+
+    </body>
+</html>

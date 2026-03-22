@@ -1,57 +1,619 @@
-{% extends 'includes/layout.swig' %}
 
-{% block body %}
-<header class="blog-post-page-title blog-search-page-title">
-  <h4>标签<a href="">{{ page.tag }}</a>下的文章</h4>
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="疏影横斜">
+    <title>Tag: 学习笔记 - 疏影横斜</title>
+    <meta name="author" content="Pocser">
+    
+    
+    
+    <script type="application/ld+json">{}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="疏影横斜">
+<meta property="og:url" content="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="疏影横斜">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Pocser">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            疏影横斜
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Öffne den Link: /#about"
+            >
+        
+        
+        </a>
+    
 </header>
-<div class="blog-main-post blog-post-page-box">
-  {% for article in page.posts.toArray() %}
-    <article class="blog-post-block">
-        {% if article.photos and article.photos.length > 0%}
-        <header>
-            <div class="blog-post-block-img">
-                <img src="{{ article.photos }}" alt="">
-            </div>
-        </header>
-        {% endif %}
-        <div class="blog-post-block-padding">
-          {% if article.link %}
-            <a href="{{ url_for(article.link) }}">{{ article.title || 'No Title' }}</a>
-          {% else %}
-            <a href="{{ url_for(article.path) }}">{{ article.title || 'No Title' }}</a>
-          {% endif %}
-            <section>
-              {% if article.excerpt.length > 0 %}
-                {{ article.excerpt }}
-              {% else %}
-                {% set content = article.content | striptags %}
-                {{ content.substring(0, theme.index_post.length) }}
-                {% if content.length > theme.auto_excerpt.length %}...{% endif %}
-              {% endif %}
-            </section>
-            <footer>
-                <time datetime="{{ date_xml(article.date) }}><i class="fa fa-clock-o"></i>{{ date(article.date) }}</time>
-                {# 文章阅读次数 #}
-                {% if theme.LeanStatistics_enable==true %}
-                <span>
-                    <i class="fa fa-eye"></i>
-                    <span id="{{ url_for(postItem.path) }}" class="views"  title="{{ postItem.title }}"></span>
-                </span>
-                {% endif %}
-                {# 文章阅读次数 #}
-                {% if article.categories and article.categories.length %}
-                  <span><i class="fa fa-folder-o"></i>
-                    {% for cat in article.categories %}
-                      <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index">
-                        {{ cat.name }}
-                      </a>
-                    {% endfor %}
-                  </span>
-                {% endif %}
-            </footer>
-        </div>
-    </article>
-  {% endfor %}
-    {% include 'includes/pagination.swig' %}
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="1">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Kategorien"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Kategorien</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archiv"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archiv</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Suche"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Suche</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="Über"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Über</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google Plus"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google Plus</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="E-Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">E-Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+    <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/09/06/24090601/"
+                            aria-label=": markdown语法学习笔记"
+                        >
+                            markdown语法学习笔记
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-09-06T15:10:07+08:00">
+	
+		    06 9月 2024
+    	
+    </time>
+    
 </div>
-{% endblock %}
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="今天学了一些markdown语法，把练习笔记在这里发一下。"><a href="#今天学了一些markdown语法，把练习笔记在这里发一下。" class="headerlink" title="今天学了一些markdown语法，把练习笔记在这里发一下。"></a>今天学了一些markdown语法，把练习笔记在这里发一下。</h2><h2 id="markdown语法学习"><a href="#markdown语法学习" class="headerlink" title="markdown语法学习"></a>markdown语法学习</h2><h3 id="标题语法：-标题-总共6级-中间留空格"><a href="#标题语法：-标题-总共6级-中间留空格" class="headerlink" title="标题语法：# 标题 总共6级  中间留空格"></a>标题语法：<code># 标题</code> 总共6级  中间留空格</h3><h3 id="段落语法：使用空白行将一行或多行文本进行分隔。"><a href="#段落语法：使用空白行将一行或多行文本进行分隔。" class="headerlink" title="段落语法：使用空白行将一行或多行文本进行分隔。"></a>段落语法：使用空白行将一行或多行文本进行分隔。</h3><h3 id="换行语法：在一行的末尾添加两个或多个空格，然后按回车键-即可创建一个换行"><a href="#换行语法：在一行的末尾添加两个或多个空格，然后按回车键-即可创建一个换行" class="headerlink" title="换行语法：在一行的末尾添加两个或多个空格，然后按回车键,即可创建一个换行"></a>换行语法：在一行的末尾添加两个或多个空格，然后按回车键,即可创建一个换行</h3><p>此处换行了</p>
+<h3 id="强调语法1-粗体：-加粗文本-，"><a href="#强调语法1-粗体：-加粗文本-，" class="headerlink" title="强调语法1 粗体：**加粗文本** ，"></a>强调语法1 粗体：<code>**加粗文本** </code>，</h3><p>例子：<strong>加粗文本</strong>；  </p>
+<h3 id="强调语法2-斜体：-斜体文本-，"><a href="#强调语法2-斜体：-斜体文本-，" class="headerlink" title="强调语法2 斜体：*斜体文本*，"></a>强调语法2 斜体：<code>*斜体文本*</code>，</h3><p>例子：<em>斜体文本</em>。  </p>
+<h3 id="强调语法3粗斜体：-粗斜体文本-，"><a href="#强调语法3粗斜体：-粗斜体文本-，" class="headerlink" title="强调语法3粗斜体：***粗斜体文本*** ，"></a>强调语法3粗斜体：<code>***粗斜体文本*** </code>，</h3><p>例子：<em><strong>粗斜体文本</strong></em>。</p>
+<h3 id="引用语法：要创建块引用，在段落前加：-符号"><a href="#引用语法：要创建块引用，在段落前加：-符号" class="headerlink" title="引用语法：要创建块引用，在段落前加： &gt;  符号"></a>引用语法：要创建块引用，在段落前加： <code>&gt;</code>  符号</h3><blockquote>
+<p>这里是一段块引用的内容 </p>
+</blockquote>
+<h4 id="多个段落的块引用：在应用段落之间的空白段落前加-；"><a href="#多个段落的块引用：在应用段落之间的空白段落前加-；" class="headerlink" title="多个段落的块引用：在应用段落之间的空白段落前加&gt;；"></a>多个段落的块引用：在应用段落之间的空白段落前加<code>&gt;</code>；</h4><blockquote>
+<p>这是段落引用的第一段</p>
+<p>这是段落引用的第二段</p>
+</blockquote>
+<h4 id="嵌套块引用：在要嵌套的段落前添加一个-符号（即两个-）"><a href="#嵌套块引用：在要嵌套的段落前添加一个-符号（即两个-）" class="headerlink" title="嵌套块引用：在要嵌套的段落前添加一个 &gt;&gt; 符号（即两个&gt;）"></a>嵌套块引用：在要嵌套的段落前添加一个 <code>&gt;&gt;</code> 符号（即两个&gt;）</h4><blockquote>
+<p>这是第一级的块引用；</p>
+<blockquote>
+<p>这是第二级的块引用</p>
+<blockquote>
+<p>这是第三级的块引用。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h4 id="带有其他元素的块引用：块引用可以包含其他-Markdown-格式的元素。并非所有元素都可以使用，你需要进行实验以查看哪些元素有效。"><a href="#带有其他元素的块引用：块引用可以包含其他-Markdown-格式的元素。并非所有元素都可以使用，你需要进行实验以查看哪些元素有效。" class="headerlink" title="带有其他元素的块引用：块引用可以包含其他 Markdown 格式的元素。并非所有元素都可以使用，你需要进行实验以查看哪些元素有效。"></a>带有其他元素的块引用：块引用可以包含其他 Markdown 格式的元素。并非所有元素都可以使用，你需要进行实验以查看哪些元素有效。</h4><blockquote>
+<h4 id="The-quarterly-results-look-great"><a href="#The-quarterly-results-look-great" class="headerlink" title="The quarterly results look great!"></a>The quarterly results look great!</h4><ul>
+<li>Revenue was off the chart.</li>
+<li>Profits were higher than ever.</li>
+</ul>
+<p> <em>Everything</em> is going according to <strong>plan</strong>.</p>
+</blockquote>
+<h3 id="列表语法：可以将多个条目组织成有序或无序列表。"><a href="#列表语法：可以将多个条目组织成有序或无序列表。" class="headerlink" title="列表语法：可以将多个条目组织成有序或无序列表。"></a>列表语法：可以将多个条目组织成有序或无序列表。</h3><h4 id="有序列表：在每个列表项前添加数字并紧跟一个英文句点，以及空格键。数字不必按数学顺序排列，但是列表应当以数字-1-起始。"><a href="#有序列表：在每个列表项前添加数字并紧跟一个英文句点，以及空格键。数字不必按数学顺序排列，但是列表应当以数字-1-起始。" class="headerlink" title="有序列表：在每个列表项前添加数字并紧跟一个英文句点，以及空格键。数字不必按数学顺序排列，但是列表应当以数字 1 起始。"></a>有序列表：在每个列表项前添加数字并紧跟一个英文句点，<em>以及空格键</em>。数字不必按数学顺序排列，但是列表应当以数字 1 起始。</h4><ol>
+<li>第一序列内容</li>
+<li>第二序列内容</li>
+<li>第三序列内容</li>
+<li>第四序列内容</li>
+</ol>
+<hr>
+<ol>
+<li>第一序列内容</li>
+<li>第二序列内容</li>
+<li>第三序列内容</li>
+<li>第四序列内容</li>
+</ol>
+<h4 id="无序列表：在每个列表项前面添加破折号-、星号-或加号-。"><a href="#无序列表：在每个列表项前面添加破折号-、星号-或加号-。" class="headerlink" title="无序列表：在每个列表项前面添加破折号 (-)、星号 (*) 或加号 (+) 。"></a>无序列表：在每个列表项前面添加破折号 (-)、星号 (*) 或加号 (+) 。</h4><ul>
+<li>破折号类无序列表1</li>
+<li>破折号类无序列表2</li>
+<li>破折号类无序列表3</li>
+</ul>
+<hr>
+<ul>
+<li>星号无序列表1</li>
+<li>星号无序列表2</li>
+<li>星号无序列表3</li>
+</ul>
+<hr>
+<ul>
+<li>加号无序列表1</li>
+<li>加号无序列表2</li>
+<li>加号无序列表3</li>
+</ul>
+<h4 id="嵌套列表：缩进一个或多个列表项可创建嵌套列表"><a href="#嵌套列表：缩进一个或多个列表项可创建嵌套列表" class="headerlink" title="嵌套列表：缩进一个或多个列表项可创建嵌套列表"></a>嵌套列表：缩进一个或多个列表项可创建嵌套列表</h4><ol>
+<li>第一序列内容</li>
+<li>第二序列内容</li>
+<li>第三序列内容<ol>
+<li>嵌套1</li>
+<li>嵌套2</li>
+<li>嵌套3</li>
+</ol>
+</li>
+<li>第四序列内容</li>
+</ol>
+<hr>
+<ul>
+<li><p>破折号类无序列表1</p>
+</li>
+<li><p>破折号类无序列表2</p>
+<ul>
+<li>嵌套1</li>
+<li>嵌套2</li>
+<li>嵌套3</li>
+</ul>
+</li>
+<li><p>破折号类无序列表3</p>
+</li>
+</ul>
+<h3 id="代码语法：要将单词或短语表示为代码，请将其包裹在反引号-中（反引号是esc下面那个键）。"><a href="#代码语法：要将单词或短语表示为代码，请将其包裹在反引号-中（反引号是esc下面那个键）。" class="headerlink" title="代码语法：要将单词或短语表示为代码，请将其包裹在反引号 (&#96;) 中（反引号是esc下面那个键）。"></a>代码语法：要将单词或短语表示为代码，请将其包裹在反引号 (&#96;) 中（反引号是esc下面那个键）。</h3><p>HTML语言代码的开始为<code>&lt;HTML&gt;</code></p>
+<h4 id="转义反引号：如果你要表示为代码的单词或短语中包含一个或多个反引号，则可以通过将单词或短语包裹在双反引号-中。（即：前后各两个反引号）"><a href="#转义反引号：如果你要表示为代码的单词或短语中包含一个或多个反引号，则可以通过将单词或短语包裹在双反引号-中。（即：前后各两个反引号）" class="headerlink" title="转义反引号：如果你要表示为代码的单词或短语中包含一个或多个反引号，则可以通过将单词或短语包裹在双反引号(&#96;&#96;)中。（即：前后各两个反引号）"></a>转义反引号：如果你要表示为代码的单词或短语中包含一个或多个反引号，则可以通过将单词或短语包裹在双反引号(&#96;&#96;)中。（即：前后各两个反引号）</h4><p><code>Use `code` in your Markdown file.</code></p>
+<h4 id="代码块：将代码块的每一行缩进至少四个空格或一个制表符。"><a href="#代码块：将代码块的每一行缩进至少四个空格或一个制表符。" class="headerlink" title="代码块：将代码块的每一行缩进至少四个空格或一个制表符。"></a>代码块：将代码块的每一行缩进至少四个空格或一个制表符。</h4><pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;
+        这是HTML文档的标题
+        &lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    这是HTML文档的正文
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="围栏代码块：不通过缩进，只在代码块之前和之后的行上使用三个反引号-）或三个波浪号（-）"><a href="#围栏代码块：不通过缩进，只在代码块之前和之后的行上使用三个反引号-）或三个波浪号（-）" class="headerlink" title="围栏代码块：不通过缩进，只在代码块之前和之后的行上使用三个反引号(&#96;&#96;&#96;）或三个波浪号（~~~）)"></a>围栏代码块：不通过缩进，只在代码块之前和之后的行上使用三个反引号(&#96;&#96;&#96;）或三个波浪号（~~~）)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;John&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Smith&quot;,</span><br><span class="line">  &quot;age&quot;: 25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="语法高亮：在（-之后指定代码的语言"><a href="#语法高亮：在（-之后指定代码的语言" class="headerlink" title="语法高亮：在（&#96;&#96;&#96;)之后指定代码的语言"></a>语法高亮：在（&#96;&#96;&#96;)之后指定代码的语言</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;firstName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;John&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;lastName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Smith&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span> <span class="number">25</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span></span><br><span class="line">        这是HTML文档的标题</span><br><span class="line">        <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    这是HTML文档的正文</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="分割线语法：在单独一行上使用三个或多个星号-、破折号-或下划线-，并且不能包含其他内容。"><a href="#分割线语法：在单独一行上使用三个或多个星号-、破折号-或下划线-，并且不能包含其他内容。" class="headerlink" title="分割线语法：在单独一行上使用三个或多个星号***、破折号--- 或下划线 ___ ，并且不能包含其他内容。"></a>分割线语法：在单独一行上使用三个或多个星号<code>***</code>、破折号<code>---</code> 或下划线 <code>___</code> ，并且不能包含其他内容。</h3><hr>
+<h3 id="链接语法：-超链接显示名-超链接地址-超链接title-链接title为可选项；"><a href="#链接语法：-超链接显示名-超链接地址-超链接title-链接title为可选项；" class="headerlink" title="链接语法：[超链接显示名](超链接地址 &quot;超链接title&quot;) 链接title为可选项；"></a>链接语法：<code>[超链接显示名](超链接地址 &quot;超链接title&quot;)</code> 链接title为可选项；</h3><p>这是我的博客网址：<a target="_blank" rel="noopener" href="https://ftosky.eu.org/" title="疏影横斜">疏影横斜</a> （含title）<br>这是我的博客网址：<a target="_blank" rel="noopener" href="https://ftosky.eu.org/">疏影横斜</a> （不含title）。</p>
+<h4 id="网址和Email地址：使用尖括号可以很方便地把URL或者email地址变成可点击的链接。"><a href="#网址和Email地址：使用尖括号可以很方便地把URL或者email地址变成可点击的链接。" class="headerlink" title="网址和Email地址：使用尖括号可以很方便地把URL或者email地址变成可点击的链接。"></a>网址和Email地址：使用尖括号可以很方便地把URL或者email地址变成可点击的链接。</h4><p><a target="_blank" rel="noopener" href="https://ftosky.eu.org/">https://ftosky.eu.org</a><br><a href="mailto:&#x7a;&#x63;&#x79;&#64;&#102;&#x74;&#x6f;&#x73;&#107;&#x79;&#46;&#x65;&#117;&#x2e;&#x6f;&#x72;&#x67;">zcy@ftosky.eu.org</a></p>
+<h4 id="带格式化的链接"><a href="#带格式化的链接" class="headerlink" title="带格式化的链接"></a>带格式化的链接</h4><h5 id="1-强调链接：在链接语法前后增加星号。"><a href="#1-强调链接：在链接语法前后增加星号。" class="headerlink" title="1. 强调链接：在链接语法前后增加星号。"></a>1. 强调链接：在链接语法前后增加星号。</h5><p>这是我的博客 <strong><a target="_blank" rel="noopener" href="https://ftosky.eu.org/">疏影横斜</a></strong>.<br>这是我的博客 <em><a target="_blank" rel="noopener" href="https://ftosky.eu.org/">疏影横斜</a></em>.</p>
+<h5 id="2-将链接表示为代码：在方括号中添加反引号。"><a href="#2-将链接表示为代码：在方括号中添加反引号。" class="headerlink" title="2. 将链接表示为代码：在方括号中添加反引号。"></a>2. 将链接表示为代码：在方括号中添加反引号。</h5><p>这是我的博客 <a target="_blank" rel="noopener" href="https://ftosky.eu.org/"><code>疏影横斜</code></a></p>
+<h5 id="3-引用类型的链接：-链接显示文本-链接标签"><a href="#3-引用类型的链接：-链接显示文本-链接标签" class="headerlink" title="3. 引用类型的链接：[链接显示文本] [链接标签]"></a>3. 引用类型的链接：[链接显示文本] [链接标签]</h5><p><em><strong>第二组括号中的标签不区分大小写，可以包含字母，数字，空格或标点符号。</strong></em><br>这是我的博客网址：<a target="_blank" rel="noopener" href="https://ftosky.eu.org/">疏影横斜</a></p>
+<hr>
+<h3 id="图片语法：-图片alt-图片链接-图片title"><a href="#图片语法：-图片alt-图片链接-图片title" class="headerlink" title="图片语法：![图片alt](图片链接 &quot;图片title&quot;)"></a>图片语法：<code>![图片alt](图片链接 &quot;图片title&quot;)</code></h3><p><img src="https://markdown.com.cn/assets/img/philly-magic-garden.9c0b4415.jpg" alt="这是markdown网站的一张例图" title="例图"> </p>
+<h4 id="图片链接：-图片alt-图片链接-图片title-超链接地址"><a href="#图片链接：-图片alt-图片链接-图片title-超链接地址" class="headerlink" title="图片链接：[![图片alt](图片链接 &quot;图片title&quot;)](超链接地址)"></a>图片链接：<code>[![图片alt](图片链接 &quot;图片title&quot;)](超链接地址)</code></h4><p>实际上是图片语法嵌套入链接语法内<br><a target="_blank" rel="noopener" href="https://ftosky.eu.org/"><img src="https://s11.ax1x.com/2023/05/25/p9HUPZ6.jpg" alt="图片链接示例" title="图片链接示例"></a></p>
+<hr>
+<hr>
+<p>+++</p>
+<h3 id="转义字符语法：要显示原本用于格式化-Markdown-文档的字符，请在字符前面添加反斜杠字符"><a href="#转义字符语法：要显示原本用于格式化-Markdown-文档的字符，请在字符前面添加反斜杠字符" class="headerlink" title="转义字符语法：要显示原本用于格式化 Markdown 文档的字符，请在字符前面添加反斜杠字符 \"></a>转义字符语法：要显示原本用于格式化 Markdown 文档的字符，请在字符前面添加反斜杠字符 \</h3><p>### 这里的井号不显示为标题</p>
+<h4 id="可做转义的字符"><a href="#可做转义的字符" class="headerlink" title="可做转义的字符"></a>可做转义的字符</h4><p><strong>以下列出的字符都可以通过使用反斜杠字符从而达到转义目的:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\</td>
+<td>backslash</td>
+</tr>
+<tr>
+<td>&#96;</td>
+<td>backtick (see also <a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/escaping-characters.html#escaping-backticks">escaping backticks in code</a>)</td>
+</tr>
+<tr>
+<td>*</td>
+<td>asterisk</td>
+</tr>
+<tr>
+<td>_</td>
+<td>underscore</td>
+</tr>
+<tr>
+<td>{ }</td>
+<td>curly braces</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>brackets</td>
+</tr>
+<tr>
+<td>( )</td>
+<td>parentheses</td>
+</tr>
+<tr>
+<td>#</td>
+<td>pound sign</td>
+</tr>
+<tr>
+<td>+</td>
+<td>plus sign</td>
+</tr>
+<tr>
+<td>-</td>
+<td>minus sign (hyphen)</td>
+</tr>
+<tr>
+<td>.</td>
+<td>dot</td>
+</tr>
+<tr>
+<td>!</td>
+<td>exclamation mark</td>
+</tr>
+<tr>
+<td>|</td>
+<td>pipe (see also <a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/escaping-pipe-characters-in-tables.html">escaping pipe in tables</a></td>
+</tr>
+</tbody></table>
+<hr>
+<hr>
+<hr>
+<p>今天先学到这里，标记一下。</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/09/06/24090601/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
+        
+        
+        <li class="pagination-number">Seite 1 von 1</li>
+    </ul>
+</div>
+
+</section>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2026 Pocser. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Pocser</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+
+
+
+    </body>
+</html>

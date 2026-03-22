@@ -1,9 +1,1065 @@
-{% extends 'includes/layout.swig' %}
 
-{% block body %}
-<div class="blog-main-post">
-	<div class="index-post-br"></div>
-  {% include 'includes/recent-posts.swig' %}
-  {% include 'includes/pagination.swig' %}
- </div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="疏影横斜">
+    <title>Archiv - 疏影横斜</title>
+    <meta name="author" content="Pocser">
+    
+    
+    
+    <script type="application/ld+json">{}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="疏影横斜">
+<meta property="og:url" content="http://example.com/archives/index.html">
+<meta property="og:site_name" content="疏影横斜">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Pocser">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            疏影横斜
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Öffne den Link: /#about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="1">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Kategorien"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Kategorien</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archiv"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archiv</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Suche"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Suche</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="Über"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Über</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google Plus"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google Plus</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="E-Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">E-Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+    <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2026/03/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/"
+                            aria-label=": 我的第一篇博客文章"
+                        >
+                            我的第一篇博客文章
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2026-03-22T14:13:51+08:00">
+	
+		    22 3月 2026
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="这是第一篇文章"><a href="#这是第一篇文章" class="headerlink" title="这是第一篇文章"></a>这是第一篇文章</h1><h1 id="阿萨德"><a href="#阿萨德" class="headerlink" title="阿萨德"></a>阿萨德</h1><p><strong>啊帅哥哈个</strong></p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2026/03/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2026/03/22/hello-world/"
+                            aria-label=": Hello World"
+                        >
+                            Hello World
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2026-03-22T14:03:56+08:00">
+	
+		    22 3月 2026
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2026/03/22/hello-world/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2025/03/04/order-backup/"
+                            aria-label=": 备忘录：发文章指令"
+                        >
+                            备忘录：发文章指令
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2025-03-04T15:52:38+08:00">
+	
+		    04 3月 2025
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>长时间不更新了，写文章以及发文章的代码指令都忘记了，再次记录一下以备忘：</p>
+<p>进入博客所在目录，右键打开 Git Bash Here，创建博文：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;My New Post&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后 source 文件夹中会出现一个 My New Post.md 文件，就可以使用 Markdown 编辑器在该文件中撰写文章了。</p>
+<p>写完后运行下面代码将文章渲染并部署到 GitHub Pages 上完成发布。<strong>以后每次发布文章都是这两条命令。</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g   # 生成页面</span><br><span class="line">hexo d   # 部署发布</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2025/03/04/order-backup/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/11/27/24112701/"
+                            aria-label=": 天冷了，空军的季节又到了"
+                        >
+                            天冷了，空军的季节又到了
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-11-27T15:57:01+08:00">
+	
+		    27 11月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>昨天没啥事情，又出来钓鱼了。不过是乘兴而去，败兴而归，颗粒无收。</p>
+<p>昨天的风特别大，所以找了个顺风的钓位，这样抛竿容易些。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/fishing-1732695259245.jpg"></p>
+<p>本来想着天冷了，鱼会游到深水区，所以今天来的这个地方水位也特别深，大概有3m左右了。结果钓了半天一条鱼也没有，问旁边的钓友，也是没有鱼口，半天浮漂都不带动的。<br>想必是因为初冬季节，河水温度还没完全降低，上层的水温还可以。而且当天虽然有风，但是太阳也比较大，照在水面上让水温回升了不少，所以鱼不一定在底层。<br>晚上扒拉手机的时候，在微信群看到有钓友说，在近岸的1.5m处还上了不少鱼。看来还真的是这样。<br>钓鱼的确是一门学问，还要不断的学习，不断的积累经验，才会有鱼获。</p>
+<p>。。。</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/11/27/24112701/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/11/26/image-test/"
+                            aria-label=": image test"
+                        >
+                            image test
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-11-26T22:06:30+08:00">
+	
+		    26 11月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>这是一篇关于图片测试的文章</p>
+<p>下面是一张梵大师的向日葵：</p>
+<p><img src="/imgs/$%7Bfiilename%7D/test.jpg"></p>
+<p>貌似测试成功。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Qxiaofei_/article/details/124629908">【Hexo】GitHub+Typora写博客+图片上传</a></p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/11/26/image-test/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/11/26/24112601/"
+                            aria-label=": 四年级上学期课外必备古诗30首"
+                        >
+                            四年级上学期课外必备古诗30首
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-11-26T20:45:21+08:00">
+	
+		    26 11月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p><strong>于易水送人</strong><br>唐·骆宾王<br>此地别燕丹，<br>壮士发冲冠。<br>昔时人已没，<br>今日水犹寒。</p>
+<p><strong>蜀中九日</strong><br>唐·王勃<br>九月九日望乡台，<br>他席他乡送客杯。<br>人情已厌南中苦，<br>鸿雁那从北地来？</p>
+<p><strong>中秋夜·其二</strong><br>唐·李峤<br>圆魄上寒空，<br>皆言四海同。<br>安知千里外，<br>不有雨兼风？</p>
+<p><strong>从军行</strong><br>唐·王昌龄<br>青海长云暗雪山，<br>孤城遥望玉门关。<br>黄沙百战穿金甲，<br>不破楼兰终不还。</p>
+<p><strong>田园乐（其六）</strong><br>唐·王维<br>桃红复含宿雨，<br>柳绿更带朝烟。<br>花落家童未扫，<br>莺啼山客犹眠。</p>
+<p><strong>山中送别</strong><br>唐·王维<br>山中相送罢，<br>日暮掩柴扉。<br>春草明年绿，<br>王孙归不归？</p>
+<p><strong>秋浦歌</strong><br>唐·李白<br>白发三千丈，<br>缘愁似个长。<br>不知明镜里，<br>何处得秋霜。</p>
+<p><strong>峨眉山月歌</strong><br>唐·李白<br>峨眉山月半轮秋，<br>影入平羌江水流。<br>夜发清溪向三峡，<br>思君不见下渝州。</p>
+<p><strong>春夜洛城闻笛</strong><br>唐·李白<br>谁家玉笛暗飞声，<br>散入春风满洛城。<br>此夜曲中闻折柳，<br>何人不起故园情。</p>
+<p><strong>劝学</strong><br>唐·颜真卿<br>三更灯火五更鸡，<br>正是男儿读书时。<br>黑发不知勤学早，<br>白首方悔读书迟。</p>
+<p><strong>江畔独步寻花(其五)</strong><br>唐·杜甫<br>黄四娘家花满蹊，<br>千朵万朵压枝低。<br>留连戏蝶时时舞，<br>自在娇莺恰恰啼。</p>
+<p><strong>赠花卿</strong><br>唐·杜甫<br>锦城丝管日纷纷，<br>半入江风半入云。<br>此曲只应天上有，<br>人间能得几回闻！</p>
+<p><strong>春望</strong><br>唐·杜甫<br>国破山河在，城春草木深。<br>感时花溅泪，恨别鸟惊心。<br>烽火连三月，家书抵万金。<br>白头搔更短，浑欲不胜簪。</p>
+<p><strong>江南逢李龟年</strong><br>唐·杜甫<br>岐王宅里寻常见，<br>崔九堂前几度闻。<br>正是江南好风景，<br>落花时节又逢君。</p>
+<p><strong>逢雪宿芙蓉山主人</strong><br>唐·刘长卿<br>日暮苍山远，<br>天寒白屋贫。<br>柴门闻犬吠，<br>风雪夜归人。</p>
+<p><strong>秋夜寄丘员外</strong><br>唐·韦应物<br>怀君属秋夜,<br>步散咏凉天<br>山空松子落,<br>幽人应未眠。</p>
+<p><strong>塞下曲（其二）</strong><br>唐·卢纶<br>林暗草惊风，<br>将军夜引弓。<br>平明寻白羽，<br>没在石棱中，</p>
+<p><strong>寒食</strong><br>唐·韩翩<br>春城无处不飞花，<br>寒食东风御柳斜。<br>日暮汉宫传蜡烛，<br>轻烟散入五侯家。</p>
+<p><strong>乌衣巷</strong><br>唐·刘禹锡<br>朱雀桥边野草花，<br>乌衣巷口夕阳斜。<br>旧时王谢堂前燕，<br>飞入寻常百姓家。</p>
+<p><strong>竹枝词</strong><br>唐·刘禹锡<br>杨柳青青江水平，<br>闻郎江上踏歌声。<br>东边日出西边雨，<br>道是无晴却有晴。</p>
+<p><strong>秋词</strong><br>唐·刘禹锡<br>自古逢秋悲寂寥，<br>我言秋日胜春朝。<br>晴空一鹤排云上，<br>便引诗情到碧霄。</p>
+<p><strong>浪淘沙</strong><br>唐·刘禹锡<br>九曲黄河万里沙，<br>浪淘风簸自天涯。<br>如今直上银河去，<br>同到牵牛织女家。</p>
+<p><strong>暮江吟</strong><br>唐·白居易<br>一道残阳铺水中，<br>半江瑟瑟半江红。<br>可怜九月初三夜，<br>露似真珠月似弓。</p>
+<p><strong>遗爱寺</strong><br>唐·白居易<br>弄石临溪坐，<br>寻花绕寺行。<br>时时闻鸟语，<br>处处是泉声。</p>
+<p><strong>鸟鸣涧</strong><br>唐·王维<br>人闲桂花落，<br>夜静春山空。<br>月出惊山鸟，<br>时鸣春涧中。</p>
+<p><strong>钱塘湖春行</strong><br>唐·白居易<br>孤山寺北贾亭西，水面初平云脚低。<br>几处早莺争暖树，谁家新燕啄春泥。<br>乱花渐欲迷人眼，浅草才能没马蹄。<br>最爱湖东行不足，绿杨阴里白沙堤。</p>
+<p><strong>菊花</strong><br>唐·元稹<br>秋丛绕舍似陶家，<br>遍绕篱边日渐斜。<br>不是花中偏爱菊，<br>此花开尽更无花。</p>
+<p><strong>赤壁</strong><br>唐·杜牧<br>折戟沉沙铁未销，<br>自将磨洗认前朝。<br>东风不与周郎便，<br>铜雀春深锁二乔。</p>
+<p><strong>泊秦淮</strong><br>唐·杜牧<br>烟笼寒水月笼沙，<br>夜泊秦淮近酒家。<br>商女不知亡国恨，<br>隔江犹唱后庭花。</p>
+<p><strong>贾生</strong><br>唐·李商隐<br>宣室求贤访逐臣，<br>贾生才调更无伦。<br>可怜半夜虚前席，<br>不问苍生问鬼神。</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/11/26/24112601/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/09/15/24091501/"
+                            aria-label=": 月饼是最成功又最难吃的节日食品"
+                        >
+                            月饼是最成功又最难吃的节日食品
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-09-15T08:08:04+08:00">
+	
+		    15 9月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>又一年中秋节假期到了。</p>
+<p>月饼仍是节日最紧俏的商品，不论在线上还是线下都销售的如火如荼。</p>
+<p>月饼可谓是最成功又最难吃的节日商品了。</p>
+<p>首先，不论生产成本是多少，精美的包装一上，价格几十上百倍的往上翻，人们还乐此不疲的购买。大部分人都把它作为节日礼品送给了亲朋好友，当然节日的时候也要应景一下，吃上一两块来。</p>
+<p>其次，相比于其他节日的传统美食，比如粽子、青团、元宵、汤圆这些，虽然也是节日食品，但是在非节日，还是有很多商店在售卖，而且又不少人把这些当成日常的食品，经常来果腹。但是月饼在中秋节之后，几乎无人问津了。节后第二天，超市里摆放的月饼价格几乎跟馒头差不多，商家真是害怕砸在手里。而由此就说明了，月饼其实并不是很好吃，最起码不符合大多数人的口味。</p>
+<p>所以，购买月饼还是要冷静哈。</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/09/15/24091501/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/09/13/24091301/"
+                            aria-label=": Markdown语法学习最终篇"
+                        >
+                            Markdown语法学习最终篇
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-09-13T19:56:21+08:00">
+	
+		    13 9月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="Markdown-删除线"><a href="#Markdown-删除线" class="headerlink" title="Markdown 删除线"></a>Markdown 删除线</h2><p>在单词前后使用两个波浪号<code>~~</code>。</p>
+<p>您可以通过在单词中心放置一条水平线来删除单词。结果看起来像这样。此功能使您可以指示某些单词是一个错误，要从文档中删除。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~世界是平坦的。~~ 我们现在知道世界是圆的。</span><br></pre></td></tr></table></figure>
+
+<p>呈现的输出如下所示：</p>
+<p><del>世界是平坦的。</del> 我们现在知道世界是圆的。</p>
+<h2 id="Markdown-任务列表语法"><a href="#Markdown-任务列表语法" class="headerlink" title="Markdown 任务列表语法"></a>Markdown 任务列表语法</h2><p>要创建任务列表，请在任务列表项之前添加破折号<code>-</code>和方括号<code>[ ]</code>，并在<code>[ ]</code>前面加上空格。要选择一个复选框，请在方括号<code>[x]</code>之间添加 x 。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- [x] Write the press release</span><br><span class="line">- [ ] Update the website</span><br><span class="line">- [ ] Contact the media</span><br></pre></td></tr></table></figure>
+
+<p>呈现结果如下：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Write the press release</li>
+<li><input disabled="" type="checkbox"> Update the website</li>
+<li><input disabled="" type="checkbox"> Contact the media</li>
+</ul>
+<h2 id="Markdown-使用-Emoji-表情"><a href="#Markdown-使用-Emoji-表情" class="headerlink" title="Markdown 使用 Emoji 表情"></a>Markdown 使用 Emoji 表情</h2><blockquote>
+<p>有两种方法可以将表情符号添加到Markdown文件中：将表情符号复制并粘贴到Markdown格式的文本中，或者键入<em>emoji shortcodes</em>。</p>
+</blockquote>
+<h4 id="复制和粘贴表情符号"><a href="#复制和粘贴表情符号" class="headerlink" title="复制和粘贴表情符号"></a>复制和粘贴表情符号</h4><p>在大多数情况下，您可以简单地从<a target="_blank" rel="noopener" href="https://emojipedia.org/">Emojipedia</a> 等来源复制表情符号并将其粘贴到文档中。许多Markdown应用程序会自动以Markdown格式的文本显示表情符号。从Markdown应用程序导出的HTML和PDF文件应显示表情符号。😭🥹🤩</p>
+<p><strong>Tip:</strong> 如果您使用的是静态网站生成器，请确保将HTML页面编码为UTF-8。</p>
+<h4 id="使用表情符号简码"><a href="#使用表情符号简码" class="headerlink" title="使用表情符号简码"></a>使用表情符号简码</h4><p>一些Markdown应用程序允许您通过键入表情符号短代码来插入表情符号。这些以冒号(<code>:</code>)开头和结尾，并包含表情符号的名称。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">去露营了！ :tent: 很快回来。</span><br><span class="line"></span><br><span class="line">真好笑！ :joy:  </span><br></pre></td></tr></table></figure>
+
+<p>呈现结果如下：</p>
+<p>去露营了！ :tent: 很快回来。</p>
+<p>真好笑！ :joy:    (<strong>生成静态网页之后竟然无法显示，好尴尬</strong>)</p>
+<p><strong>Note:</strong> 注意：您可以使用此<a target="_blank" rel="noopener" href="https://gist.github.com/rxaviers/7360908">表情符号简码列表</a>，但请记住，表情符号简码因应用程序而异。有关更多信息，请参阅Markdown应用程序的文档。</p>
+<h2 id="自动网址链接"><a href="#自动网址链接" class="headerlink" title="自动网址链接"></a>自动网址链接</h2><p>许多Markdown处理器会自动将URL转换为链接。这意味着如果您输入<a href="http://www.example.com，即使您未[使用方括号](https://markdown.com.cn/basic-syntax/links.html)，您的Markdown处理器也会自动将其转换为链接。">http://www.example.com，即使您未[使用方括号](https://markdown.com.cn/basic-syntax/links.html)，您的Markdown处理器也会自动将其转换为链接。</a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com</span><br></pre></td></tr></table></figure>
+
+<p>呈现的输出如下所示：</p>
+<p><a target="_blank" rel="noopener" href="http://www.example.com/">http://www.example.com</a></p>
+<h4 id="禁用自动URL链接"><a href="#禁用自动URL链接" class="headerlink" title="禁用自动URL链接"></a>禁用自动URL链接</h4><p>如果您不希望自动链接URL，则可以通过将URL表示为带反引号的代码来删除该链接。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`http://www.example.com`</span><br></pre></td></tr></table></figure>
+
+<p>呈现的输出如下所示：</p>
+<p><code>http://www.example.com</code></p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/09/13/24091301/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/09/12/24091203/"
+                            aria-label=": Markdown语法学习 标题ID篇"
+                        >
+                            Markdown语法学习 标题ID篇
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-09-12T14:46:53+08:00">
+	
+		    12 9月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="标题ID"><a href="#标题ID" class="headerlink" title="标题ID"></a>标题ID</h2><p>许多Markdown处理器支持<a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/headings.html">标题</a>的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### My Great Heading &#123;#custom-id&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>HTML看起来像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">id</span>=<span class="string">&quot;custom-id&quot;</span>&gt;</span>My Great Heading<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="链接到标题ID-headid"><a href="#链接到标题ID-headid" class="headerlink" title="#链接到标题ID (#headid)"></a><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#%E9%93%BE%E6%8E%A5%E5%88%B0%E6%A0%87%E9%A2%98id-headid">#</a>链接到标题ID (#headid)</h2><p>通过创建带有数字符号（<code>#</code>）和自定义标题ID的<a href="(/basic-syntax/links.html">标准链接</a>，可以链接到文件中具有自定义ID的标题。</p>
+<table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>HTML</th>
+<th>预览效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[Heading IDs](#heading-ids)</code></td>
+<td><code>&lt;a href=&quot;#heading-ids&quot;&gt;Heading IDs&lt;/a&gt;</code></td>
+<td><a target="_blank" rel="noopener" href="https://markdown.com.cn/extended-syntax/heading-ids.html#heading-ids">Heading IDs</a></td>
+</tr>
+</tbody></table>
+<p>其他网站可以通过将自定义标题ID添加到网页的完整URL（例如<code>[Heading IDs](https://markdown.com.cn/extended-syntax/heading-ids.html#headid)</code>）来链接到标题。</p>
+<hr>
+<h3 id="实践总结："><a href="#实践总结：" class="headerlink" title="实践总结："></a>实践总结：</h3><p>hexo在处理md文件生成静态文件时，会自动为标题添加ID，所以当自定义标题id后，hexo在执行generate指令时就会出错。</p>
+<p>hexo为标题添加的ID就是标题的名称，所以链接到标题ID的处理方法就是(<code>[文本](#标题名称)</code>)，测试：</p>
+<p>本页内链接到<a href="#%E6%A0%87%E9%A2%98ID">标题ID</a></p>
+<p>链接到其他页面的<a target="_blank" rel="noopener" href="https://ftosky.eu.org/2024/09/12/24091202/#Markdown-%E8%84%9A%E6%B3%A8">Markdown脚注</a></p>
+<hr>
+<p>同名称的标题系统如何赋ID？第一个标题的ID是<code>#标题名称</code>，第二个标题的ID是<code>#标题名称-1</code>，第三个标题的ID是<code>标题名称-2</code>，以此类推。</p>
+<p>第一个标题</p>
+<h3 id="这是标题"><a href="#这是标题" class="headerlink" title="这是标题"></a>这是标题</h3><p>第二个标题</p>
+<h3 id="这是标题-1"><a href="#这是标题-1" class="headerlink" title="这是标题"></a>这是标题</h3><p>第三个标题</p>
+<h3 id="这是标题-2"><a href="#这是标题-2" class="headerlink" title="这是标题"></a>这是标题</h3>
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/09/12/24091203/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2024/09/12/24091202/"
+                            aria-label=": Markdown语法学习 第三次"
+                        >
+                            Markdown语法学习 第三次
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2024-09-12T14:34:41+08:00">
+	
+		    12 9月 2024
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="Markdown语法学习-第三次"><a href="#Markdown语法学习-第三次" class="headerlink" title="Markdown语法学习 第三次"></a>Markdown语法学习 第三次</h2><h2 id="Markdown-脚注"><a href="#Markdown-脚注" class="headerlink" title="Markdown 脚注"></a>Markdown 脚注</h2><p>脚注使您可以添加注释和参考，而不会使文档正文混乱。当您创建脚注时，带有脚注的上标数字会出现在您添加脚注参考的位置。读者可以单击链接以跳至页面底部的脚注内容。</p>
+<p>要创建脚注参考，请在方括号（<code>[^1]</code>）内添加插入符号和标识符。标识符可以是数字或单词，但不能包含空格或制表符。标识符仅将脚注参考与脚注本身相关联-在输出中，脚注按顺序编号。</p>
+<p>在括号内使用另一个插入符号和数字添加脚注，并用冒号和文本（<code>[^1]: My footnote.</code>）。您不必在文档末尾添加脚注。您可以将它们放在除列表，块引号和表之类的其他元素之外的任何位置。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Here&#x27;s a simple footnote,[^1] and here&#x27;s a longer one.[^bignote]</span><br><span class="line"></span><br><span class="line">[^1]: This is the first footnote.</span><br><span class="line"></span><br><span class="line">[^bignote]: Here&#x27;s one with multiple paragraphs and code.</span><br><span class="line"></span><br><span class="line">    Indent paragraphs to include them in the footnote.</span><br><span class="line"></span><br><span class="line">    `&#123; my code &#125;`</span><br><span class="line"></span><br><span class="line">    Add as many paragraphs as you like.</span><br></pre></td></tr></table></figure>
+
+<p>呈现结果如下：</p>
+<p>Here’s a simple footnote,[^1] and here’s a longer one.[^bignote]</p>
+<p>[^1]: This is the first footnote.</p>
+<p>[^bignote]: Here’s one with multiple paragraphs and code.</p>
+<pre><code>Indent paragraphs to include them in the footnote.
+
+`{ my code }`
+
+Add as many paragraphs as you like.
+</code></pre>
+<p>这是第三种脚注用法:[^3]</p>
+<p>[^3]: My footnote3.</p>
+<hr>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2024/09/12/24091202/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
+        
+        
+          <li class="pagination-next">
+            <a
+                class="btn btn--default btn--small"
+                href="/archives/page/2/"
+                aria-label="ÄLTERE BEITRÄGE"
+            >
+              <span>ÄLTERE BEITRÄGE</span>
+              <i class="fa fa-angle-right text-base icon-ml"></i>
+            </a>
+          </li>
+        
+        <li class="pagination-number">Seite 1 von 2</li>
+    </ul>
+</div>
+
+</section>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2026 Pocser. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Pocser</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+
+
+
+    </body>
+</html>
