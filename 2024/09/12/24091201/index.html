@@ -1,385 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Markdown语法学习 第二次 | 疏影横斜</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Markdown 语法学习 第二次&copy;  4 &lt;  5  4 &lt; 5 markdown 内嵌HTML标签对于 Markdown 涵盖范围之外的标签，都可以直接在文件里面用 HTML 本身。如需使用 HTML，不需要额外标注这是 HTML 或是 Markdown，只需 HTML 标签添加到 Markdown 文本中即可。  行级内联标签HTML 的行级內联标签如 &lt;span&amp;gt">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Markdown语法学习 第二次">
-<meta property="og:url" content="http://example.com/2024/09/12/24091201/index.html">
-<meta property="og:site_name" content="疏影横斜">
-<meta property="og:description" content="Markdown 语法学习 第二次&copy;  4 &lt;  5  4 &lt; 5 markdown 内嵌HTML标签对于 Markdown 涵盖范围之外的标签，都可以直接在文件里面用 HTML 本身。如需使用 HTML，不需要额外标注这是 HTML 或是 Markdown，只需 HTML 标签添加到 Markdown 文本中即可。  行级内联标签HTML 的行级內联标签如 &lt;span&amp;gt">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-12T06:31:13.000Z">
-<meta property="article:modified_time" content="2024-09-12T06:34:04.402Z">
-<meta property="article:author" content="Pocser">
-<meta property="article:tag" content="Markdown语法">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="疏影横斜" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+extends partial/layout
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+block site_title
+    != page.title
+block styles
+    != css('css/index.css?v='+date(Date.now(), 'YYYYMMDDHHmm'),'css/info.css?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+    link(href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css", rel='stylesheet')
+block container
+    main
+        .con_warp
+            .infosbox
+                .newsview
+                    h3.news_title!= page.title
+                    .bloginfo
+                        ul
+                            li.author
+                                | 作者：
+                                a(href='/')!= getValue(page, "author") || getConfig('author')
+                            li.lmname
+                                a(href='/')!= getValue(page, "categories.data.0.name")
+                            li.timer!= '时间：' + date(page.date, "YYYY-MM-DD HH:mm:ss")
+                            li.view
+                                span#busuanzi_value_page_pv 99
+                                span 次访问
+                    .tags
+                        each tag in getValue(page,"tags.data",[])
+                            a(href=url_for(tag.path), target='_blank')!= tag.name
+                    - if(page.excerpt)
+                        .news_about
+                            strong 简介
+                            != page.excerpt
+                     .news_con!= page.more || page.content
+                .nextinfo
+                    p 上一篇：
+                        - var prev = getValue(page,"prev");
+                        if(prev)
+                            a(href=url_for(prev.path))!= prev.title
+                        else
+                            != '没有了'
+                    p 下一篇：
+                        - var next = getValue(page,"next");
+                            if(next)
+                                a(href=url_for(next.path))!= next.title
+                            else
+                                != '没有了'
+                - if(page.comments)
+                    .news_pl
+                        include mixins/scripts
+                        +comment()
+    aside.r_box
+        include mixins/right
+        +card()
+        +category()
+        +wechat()
 
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 8.1.1"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">疏影横斜</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">0</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">1</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">2</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">3</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">4</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">5</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-24091201" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/09/12/24091201/" class="article-date">
-  <time class="dt-published" datetime="2024-09-12T06:31:13.000Z" itemprop="datePublished">2024-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Markdown语法学习 第二次
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Markdown-语法学习-第二次"><a href="#Markdown-语法学习-第二次" class="headerlink" title="Markdown 语法学习 第二次"></a>Markdown 语法学习 第二次</h2><p>&copy;</p>
-<html>
-4 <  5
-
-<p>4 &lt; 5</p>
-<h2 id="markdown-内嵌HTML标签"><a href="#markdown-内嵌HTML标签" class="headerlink" title="markdown 内嵌HTML标签"></a>markdown 内嵌HTML标签</h2><p>对于 Markdown 涵盖范围之外的标签，都可以直接在文件里面用 HTML 本身。如需使用 HTML，不需要额外标注这是 HTML 或是 Markdown，只需 HTML 标签添加到 Markdown 文本中即可。 </p>
-<h4 id="行级内联标签"><a href="#行级内联标签" class="headerlink" title="行级内联标签"></a>行级内联标签</h4><p>HTML 的行级內联标签如 <code>&lt;span&gt;</code>、<code>&lt;cite&gt;</code>、<code>&lt;del&gt;</code> 不受限制，可以在 Markdown 的段落、列表或是标题里任意使用。依照个人习惯，甚至可以不用 Markdown 格式，而采用 HTML 标签来格式化。例如：如果比较喜欢 HTML 的 <code>&lt;a&gt;</code> 或 <code>&lt;img&gt;</code> 标签，可以直接使用这些标签，而不用 Markdown 提供的链接或是图片语法。当你需要更改元素的属性时（例如为文本指定颜色或更改图像的宽度），使用 HTML 标签更方便些。</p>
-<p> <span style="font-size: 20px; color: #2ecc71">  用<code>&lt;span&gt;</code>标签设置文本字体的大小为20px，颜色为草绿色；</span></p>
-<p>HTML 行级內联标签和区块标签不同，在內联标签的范围内， Markdown 的语法是可以解析的。</p>
-<p>This <strong>word</strong> is bold. This <em>word</em> is italic.</p>
-<h4 id="区块标签"><a href="#区块标签" class="headerlink" title="区块标签"></a>区块标签</h4><p>区块元素──比如 <div>、<table>、<pre>、<p> 等标签，必须在前后加上空行，以便于内容区分。而且这些元素的开始与结尾标签，不可以用 tab 或是空白来缩进。Markdown 会自动识别这区块元素，避免在区块标签前后加上没有必要的 <p> 标签。</p>
-<p>例如，在 Markdown 文件里加上一段 HTML 表格：</p>
-<pre><code>This is a regular paragraph.
-
-&lt;table&gt;
-    &lt;tr&gt;
-        &lt;td&gt;&lt;b&gt;Foo&lt;/b&gt; Foo&lt;/td&gt;
-        &lt;td&gt;&lt;em&gt;Baa&lt;/em&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-
-This is another regular paragraph.
-</code></pre>
-<table>
-    <tr>
-        <td><b>Foo</b> Foo</td>
-        <td><em>Baa</em></td>
-    </tr>
-</table>
-
-<p>请注意，Markdown 语法在 HTML 区块标签中将不会被进行处理。例如，你无法在 HTML 区块内使用 Markdown 形式的<code>*强调*</code>。</p>
-<p>对于 HTML 的块级元素 <code>&lt;div&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code> 和 <code>&lt;p&gt;</code>，请在其前后使用空行（blank lines）与其它内容进行分隔。尽量不要使用制表符（tabs）或空格（spaces）对 HTML 标签做缩进，否则将影响格式。</p>
-<p>在 HTML 块级标签内不能使用 Markdown 语法。例如 <code>&lt;p&gt;italic and **bold**&lt;/p&gt;</code> 将不起作用。</p>
-<hr>
-<p><span style="font-size:23px;"><b>Markdown基本语法至此学习完毕，下面开始学习一下扩展语法。</b></span></p>
-<hr>
-<h2 id="Markdown表格"><a href="#Markdown表格" class="headerlink" title="Markdown表格"></a>Markdown表格</h2><p>要添加表，请使用三个或多个连字符（<code>---</code>）创建每列的标题，并使用管道（<code>|</code>）分隔每列。您可以选择在表的任一端添加管道。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| Syntax      | Description |</span><br><span class="line">| ----------- | ----------- |</span><br><span class="line">| Header      | Title       |</span><br><span class="line">| Paragraph   | Text        |</span><br></pre></td></tr></table></figure>
-
-<p>呈现的输出如下所示：</p>
-<table>
-<thead>
-<tr>
-<th>Syntax</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Header</td>
-<td>Title</td>
-</tr>
-<tr>
-<td>Paragraph</td>
-<td>Text</td>
-</tr>
-</tbody></table>
-<p>单元格宽度可以变化，如下所示。呈现的输出将看起来相同。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| Syntax | Description |</span><br><span class="line">| --- | ----------- |</span><br><span class="line">| Header | Title |</span><br><span class="line">| Paragraph | Text |</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>Syntax</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Header</td>
-<td>Title</td>
-</tr>
-<tr>
-<td>Paragraph</td>
-<td>Text</td>
-</tr>
-</tbody></table>
-<h4 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h4><p>您可以通过在标题行中的连字符的左侧，右侧或两侧添加冒号（<code>:</code>），将列中的文本对齐到左侧，右侧或中心。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| Syntax      | Description | Test Text     |</span><br><span class="line">| :---        |    :----:   |          ---: |</span><br><span class="line">| Header      | Title       | Here&#x27;s this   |</span><br><span class="line">| Paragraph   | Text        | And more      |</span><br></pre></td></tr></table></figure>
-
-<p>呈现结果如下：</p>
-<table>
-<thead>
-<tr>
-<th align="left">Syntax</th>
-<th align="center">Description</th>
-<th align="right">Test  Text</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Header</td>
-<td align="center">Title</td>
-<td align="right">Here&#39;s this</td>
-</tr>
-<tr>
-<td align="left">Paragraph</td>
-<td align="center">Text</td>
-<td align="right">And more</td>
-</tr>
-</tbody></table>
-<h4 id="格式化表格中的文字"><a href="#格式化表格中的文字" class="headerlink" title="格式化表格中的文字"></a>格式化表格中的文字</h4><p>您可以在表格中设置文本格式。例如，您可以添加<strong>链接</strong>，代码（仅反引号（`）中的单词或短语，而不是代码块）和<strong>强调</strong>。</p>
-<p>您<strong>不能</strong>添加<strong>标题</strong>，<strong>块引用</strong>，<strong>列表</strong>，<strong>水平规则</strong>，图像或<strong>HTML标签</strong>。</p>
-<h4 id="在表中转义管道字符"><a href="#在表中转义管道字符" class="headerlink" title="在表中转义管道字符"></a>在表中转义管道字符</h4><p>您可以使用表格的HTML字符代码<code>（&amp;#124;）</code>在表中显示竖线（|）字符。</p>
-<table>
-<thead>
-<tr>
-<th>Syntax</th>
-<th>Description</th>
-<th>Test Text</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Header</td>
-<td>Title</td>
-<td>Here&#39;s this &#124;</td>
-</tr>
-</tbody></table>
-<h2 id="Markdown-围栏代码：在代码块之前和之后的行上使用三个反引号（-）或三个波浪号（-）"><a href="#Markdown-围栏代码：在代码块之前和之后的行上使用三个反引号（-）或三个波浪号（-）" class="headerlink" title="Markdown 围栏代码：在代码块之前和之后的行上使用三个反引号（(`````）或三个波浪号（~~~）"></a>Markdown 围栏代码：在代码块之前和之后的行上使用三个反引号（(`````）或三个波浪号（~~~）</h2><p>Markdown基本语法允许您通过将行缩进四个空格或一个制表符来创建<a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/code-blocks.html">代码块</a>。如果发现不方便，请尝试使用受保护的代码块。根据Markdown处理器或编辑器的不同，您将在代码块之前和之后的行上使用三个反引号（(`````）或三个波浪号（~~~）。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;John&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Smith&quot;,</span><br><span class="line">  &quot;age&quot;: 25</span><br><span class="line">&#125;</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;John&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Smith&quot;,</span><br><span class="line">  &quot;age&quot;: 25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="高亮语法：添加代码语言"><a href="#高亮语法：添加代码语言" class="headerlink" title="高亮语法：添加代码语言"></a>高亮语法：添加代码语言</h4><p>许多Markdown处理器都支持受围栏代码块的语法突出显示。使用此功能，您可以为编写代码的任何语言添加颜色突出显示。要添加语法突出显示，请在受防护的代码块之前的反引号旁边指定一种语言。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;firstName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;John&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;lastName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Smith&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span> <span class="number">25</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/12/24091201/" data-id="cuidFn_XhSTruE11KJEiDS2c1" data-title="Markdown语法学习 第二次" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown%E8%AF%AD%E6%B3%95/" rel="tag">Markdown语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2024/09/12/24091202/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Markdown语法学习 第三次
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2024/09/06/24090601/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">markdown语法学习笔记</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown%E8%AF%AD%E6%B3%95/" rel="tag">Markdown语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-%E5%9F%9F%E5%90%8D-%E9%85%8D%E7%BD%AE/" rel="tag">github.io, 域名, 配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image-test/" rel="tag">image_test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown%E8%AF%AD%E6%B3%95/" rel="tag">markdown语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%A7%8B%E8%8A%82/" rel="tag">中秋节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%BB%E9%A2%98-%E9%85%8D%E7%BD%AE/" rel="tag">主题, 配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E8%AF%97/" rel="tag">古诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/" rel="tag">域名, 失效, 自定义, hexo, 部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95/" rel="tag">备忘录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%AD%A6%E7%AC%AC%E4%B8%80%E8%AF%BE/" rel="tag">开学	第一课</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%88%E9%A5%BC/" rel="tag">月饼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98ID/" rel="tag">标题ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A9%BA%E5%86%9B/" rel="tag">空军</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AF%87/" rel="tag">第一篇</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%92%93%E9%B1%BC/" rel="tag">钓鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%BE%E5%90%83/" rel="tag">难吃</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Markdown%E8%AF%AD%E6%B3%95/" style="font-size: 20px;">Markdown语法</a> <a href="/tags/github-io-%E5%9F%9F%E5%90%8D-%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">github.io, 域名, 配置</a> <a href="/tags/image-test/" style="font-size: 10px;">image_test</a> <a href="/tags/markdown%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">markdown语法</a> <a href="/tags/%E4%B8%AD%E7%A7%8B%E8%8A%82/" style="font-size: 10px;">中秋节</a> <a href="/tags/%E4%B8%BB%E9%A2%98-%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">主题, 配置</a> <a href="/tags/%E5%8F%A4%E8%AF%97/" style="font-size: 10px;">古诗</a> <a href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">域名, 失效, 自定义, hexo, 部署</a> <a href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95/" style="font-size: 10px;">备忘录</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">学习笔记</a> <a href="/tags/%E5%BC%80%E5%AD%A6%E7%AC%AC%E4%B8%80%E8%AF%BE/" style="font-size: 10px;">开学	第一课</a> <a href="/tags/%E6%9C%88%E9%A5%BC/" style="font-size: 10px;">月饼</a> <a href="/tags/%E6%A0%87%E9%A2%98ID/" style="font-size: 10px;">标题ID</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a> <a href="/tags/%E7%A9%BA%E5%86%9B/" style="font-size: 10px;">空军</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AF%87/" style="font-size: 10px;">第一篇</a> <a href="/tags/%E9%92%93%E9%B1%BC/" style="font-size: 10px;">钓鱼</a> <a href="/tags/%E9%9A%BE%E5%90%83/" style="font-size: 10px;">难吃</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2026/03/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">我的第一篇博客文章</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/22/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/04/order-backup/">备忘录：发文章指令</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/27/24112701/">天冷了，空军的季节又到了</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/26/image-test/">image test</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 Pocser<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">0</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">1</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">2</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">3</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">4</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">5</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+block scripts
+    include mixins/scripts
+    +canvas()
+    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/highlight.min.js")
+    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/java.min.js")
+    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/javascript.min.js")
+    script(type='text/javascript').
+        hljs.initHighlightingOnLoad();
+    script(async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js")
+    != js('js/common.js?v='+date(Date.now(), 'YYYYMMDDHHmm'),'js/index.js?v='+date(Date.now(), 'YYYYMMDDHHmm'))

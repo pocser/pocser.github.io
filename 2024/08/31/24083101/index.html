@@ -1,301 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME） | 疏影横斜</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文： 当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。 情形1：未添加 CNAME解决方案： 找到 hexo">
-<meta property="og:type" content="article">
-<meta property="og:title" content="解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）">
-<meta property="og:url" content="http://example.com/2024/08/31/24083101/index.html">
-<meta property="og:site_name" content="疏影横斜">
-<meta property="og:description" content="本文内容来自csdn上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文： 当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。 情形1：未添加 CNAME解决方案： 找到 hexo">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgpff.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgwcD.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgW38.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEghjg.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEg7En.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgO3T.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/08/31/pAEgXgU.png">
-<meta property="article:published_time" content="2024-08-31T11:55:42.000Z">
-<meta property="article:modified_time" content="2024-08-31T12:22:57.951Z">
-<meta property="article:author" content="Pocser">
-<meta property="article:tag" content="域名, 失效, 自定义, hexo, 部署">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s21.ax1x.com/2024/08/31/pAEgpff.png">
-  
-    <link rel="alternate" href="/atom.xml" title="疏影横斜" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+extends partial/layout
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+block site_title
+    != page.title
+block styles
+    != css('css/index.css?v='+date(Date.now(), 'YYYYMMDDHHmm'),'css/info.css?v='+date(Date.now(), 'YYYYMMDDHHmm'))
+    link(href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css", rel='stylesheet')
+block container
+    main
+        .con_warp
+            .infosbox
+                .newsview
+                    h3.news_title!= page.title
+                    .bloginfo
+                        ul
+                            li.author
+                                | 作者：
+                                a(href='/')!= getValue(page, "author") || getConfig('author')
+                            li.lmname
+                                a(href='/')!= getValue(page, "categories.data.0.name")
+                            li.timer!= '时间：' + date(page.date, "YYYY-MM-DD HH:mm:ss")
+                            li.view
+                                span#busuanzi_value_page_pv 99
+                                span 次访问
+                    .tags
+                        each tag in getValue(page,"tags.data",[])
+                            a(href=url_for(tag.path), target='_blank')!= tag.name
+                    - if(page.excerpt)
+                        .news_about
+                            strong 简介
+                            != page.excerpt
+                     .news_con!= page.more || page.content
+                .nextinfo
+                    p 上一篇：
+                        - var prev = getValue(page,"prev");
+                        if(prev)
+                            a(href=url_for(prev.path))!= prev.title
+                        else
+                            != '没有了'
+                    p 下一篇：
+                        - var next = getValue(page,"next");
+                            if(next)
+                                a(href=url_for(next.path))!= next.title
+                            else
+                                != '没有了'
+                - if(page.comments)
+                    .news_pl
+                        include mixins/scripts
+                        +comment()
+    aside.r_box
+        include mixins/right
+        +card()
+        +category()
+        +wechat()
 
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 8.1.1"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">疏影横斜</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">0</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">1</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">2</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">3</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">4</a>
-        
-          <a class="main-nav-link" href="/%5Bobject%20Object%5D">5</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-24083101" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/08/31/24083101/" class="article-date">
-  <time class="dt-published" datetime="2024-08-31T11:55:42.000Z" itemprop="datePublished">2024-08-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>本文内容来自<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41747528/article/details/102772937">csdn</a>上的一篇博文，点进去可直接查看原文。这两天更新的时候发现，每次更新后绑定的域名就失效了，要重新进行绑定，在bing上搜索一番后，找到了这篇博文，本站采用了“情形一”的方式解决了问题。以下是原文：</p>
-<p>当你自定义 Github Pages 域名时，是否出现了每次hexo deploy，自定义域名都失效的问题呢？以下分两种情况讨论。</p>
-<h3 id="情形1：未添加-CNAME"><a href="#情形1：未添加-CNAME" class="headerlink" title="情形1：未添加 CNAME"></a>情形1：未添加 CNAME</h3><h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h5><ol>
-<li><p>找到 hexo 博客根目录下的 source 文件夹。注意，不是主题的 source 文件夹。当 hexo 生成静态页面时，根目录下的 source 文件夹中的内容，就会在生成的网页根目录中（你可以在部署到github后，在仓库中查看，此时本地根目录下source文件夹的内容就在仓库的根目下）。<br><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgpff"><img src="https://s21.ax1x.com/2024/08/31/pAEgpff.png" alt="pAEgpff.png"></a></p>
-</li>
-<li><p>新建一个文件，名为 CNAME ，内容为你的域名（不包括www.或http等等）。如图：</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgwcD"><img src="https://s21.ax1x.com/2024/08/31/pAEgwcD.png" alt="pAEgwcD.png"></a></p>
-<p><strong>注意：</strong><br>——- 名为 CNAME，全部大写，没有后缀。<br>——- 内容只包含一个域名，且不含 www. 或 http 等。<br>——- 放到根目录下的source文件夹中。</p>
-<ol start="3">
-<li>hexo g -d</li>
-</ol>
-<p>执行完毕后登陆github，找到仓库，settings，查看域名是否已经更改，或者直接用域名尝试访问。<br><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgW38"><img src="https://s21.ax1x.com/2024/08/31/pAEgW38.png" alt="pAEgW38.png"></a></p>
-<h3 id="情形2：已添加-CNAME"><a href="#情形2：已添加-CNAME" class="headerlink" title="情形2：已添加 CNAME"></a>情形2：已添加 CNAME</h3><h5 id="解决方案：-1"><a href="#解决方案：-1" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h5><ol>
-<li>首先进入github仓库查看 CNAME是否出现在根目录中，如图所示：</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEghjg"><img src="https://s21.ax1x.com/2024/08/31/pAEghjg.png" alt="pAEghjg.png"></a></p>
-<p>​    若没有，则请返回第一种情况，认真检查自己的 CNAME 的路径是否正确。</p>
-<ol start="2">
-<li>若仓库根目录存在 CNAME 文件，请按照以下步骤检查：<br>——- 情形1步骤2中的注意点，是否都符合要求？<br>——- <em><strong>若感觉符合要求！！！请你务必注意你的文件后缀！！！</strong></em></li>
-</ol>
-<p><strong>首先</strong>，看你的电脑是不是把后缀自动隐藏了，虽然你命名时，只输入了CNAME，但是它有可能会自动生成一个后缀，且隐藏。假如你用 mac，用文本编辑，命名为CNAME 保存后，有可能会自动加上后缀，但是 mac又很鬼畜的把后缀给隐藏了！！</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEg7En"><img src="https://s21.ax1x.com/2024/08/31/pAEg7En.png" alt="pAEg7En.png"></a></p>
-<p>一定要注意！！保存时留意一下格式。</p>
-<p><strong>其次</strong>，如果你发现你文件格式不对，不要直接把它的后缀去掉，有可能会出错。</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgO3T"><img src="https://s21.ax1x.com/2024/08/31/pAEgO3T.png" alt="pAEgO3T.png"></a></p>
-<p>如果这样直接修改，表面上是满足要求了，但仍可能出错。</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAEgXgU"><img src="https://s21.ax1x.com/2024/08/31/pAEgXgU.png" alt="pAEgXgU.png"></a></p>
-<p>因为它会认为你的文件已经损坏了，所以你应该重新建好一个 CNAME 无后缀文件，并将其替代。至此问题解决。</p>
-<p>新建无后缀文件可以使用<strong>touch</strong>命令。<br>使用命令行，<strong>cd</strong> 到指定目录，然后 <strong>touch filename</strong>，这样就新建了一个名为filename的无后缀文件。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/31/24083101/" data-id="cuidHmXzUgG8Mabj8HoCGvI_T" data-title="解决 Hexo 部署 Github Pages 自定义域名失效的问题(即使已添加 CNAME）" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/" rel="tag">域名, 失效, 自定义, hexo, 部署</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2024/09/01/24090101/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          开学第一课
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2024/08/30/24083002/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">github域名配置完成</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown%E8%AF%AD%E6%B3%95/" rel="tag">Markdown语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-io-%E5%9F%9F%E5%90%8D-%E9%85%8D%E7%BD%AE/" rel="tag">github.io, 域名, 配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image-test/" rel="tag">image_test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown%E8%AF%AD%E6%B3%95/" rel="tag">markdown语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%A7%8B%E8%8A%82/" rel="tag">中秋节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%BB%E9%A2%98-%E9%85%8D%E7%BD%AE/" rel="tag">主题, 配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E8%AF%97/" rel="tag">古诗</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/" rel="tag">域名, 失效, 自定义, hexo, 部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95/" rel="tag">备忘录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%AD%A6%E7%AC%AC%E4%B8%80%E8%AF%BE/" rel="tag">开学	第一课</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%88%E9%A5%BC/" rel="tag">月饼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E9%A2%98ID/" rel="tag">标题ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A9%BA%E5%86%9B/" rel="tag">空军</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E7%AF%87/" rel="tag">第一篇</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%92%93%E9%B1%BC/" rel="tag">钓鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%BE%E5%90%83/" rel="tag">难吃</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Markdown%E8%AF%AD%E6%B3%95/" style="font-size: 20px;">Markdown语法</a> <a href="/tags/github-io-%E5%9F%9F%E5%90%8D-%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">github.io, 域名, 配置</a> <a href="/tags/image-test/" style="font-size: 10px;">image_test</a> <a href="/tags/markdown%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">markdown语法</a> <a href="/tags/%E4%B8%AD%E7%A7%8B%E8%8A%82/" style="font-size: 10px;">中秋节</a> <a href="/tags/%E4%B8%BB%E9%A2%98-%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">主题, 配置</a> <a href="/tags/%E5%8F%A4%E8%AF%97/" style="font-size: 10px;">古诗</a> <a href="/tags/%E5%9F%9F%E5%90%8D-%E5%A4%B1%E6%95%88-%E8%87%AA%E5%AE%9A%E4%B9%89-hexo-%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">域名, 失效, 自定义, hexo, 部署</a> <a href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95/" style="font-size: 10px;">备忘录</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">学习笔记</a> <a href="/tags/%E5%BC%80%E5%AD%A6%E7%AC%AC%E4%B8%80%E8%AF%BE/" style="font-size: 10px;">开学	第一课</a> <a href="/tags/%E6%9C%88%E9%A5%BC/" style="font-size: 10px;">月饼</a> <a href="/tags/%E6%A0%87%E9%A2%98ID/" style="font-size: 10px;">标题ID</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a> <a href="/tags/%E7%A9%BA%E5%86%9B/" style="font-size: 10px;">空军</a> <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AF%87/" style="font-size: 10px;">第一篇</a> <a href="/tags/%E9%92%93%E9%B1%BC/" style="font-size: 10px;">钓鱼</a> <a href="/tags/%E9%9A%BE%E5%90%83/" style="font-size: 10px;">难吃</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2026/03/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">我的第一篇博客文章</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/22/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/04/order-backup/">备忘录：发文章指令</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/27/24112701/">天冷了，空军的季节又到了</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/26/image-test/">image test</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 Pocser<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">0</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">1</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">2</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">3</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">4</a>
-  
-    <a href="/%5Bobject%20Object%5D" class="mobile-nav-link">5</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+block scripts
+    include mixins/scripts
+    +canvas()
+    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/highlight.min.js")
+    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/java.min.js")
+    script(src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/javascript.min.js")
+    script(type='text/javascript').
+        hljs.initHighlightingOnLoad();
+    script(async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js")
+    != js('js/common.js?v='+date(Date.now(), 'YYYYMMDDHHmm'),'js/index.js?v='+date(Date.now(), 'YYYYMMDDHHmm'))
